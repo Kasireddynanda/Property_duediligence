@@ -194,13 +194,15 @@ function transformInfraToProperty(project: any): Property {
   };
 }
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 function App() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/recent-searches')
+    fetch(`${API_BASE_URL}/api/recent-searches`)
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {
@@ -213,7 +215,7 @@ function App() {
   const saveRecentSearch = async (query: string, propName?: string, reraId?: string) => {
     if (!query.trim() && !propName) return;
     try {
-      await fetch('http://localhost:8000/api/recent-searches', {
+      await fetch(`${API_BASE_URL}/api/recent-searches`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -338,7 +340,7 @@ function App() {
             page: "1",
             page_size: "5"
           });
-          const res = await fetch(`http://localhost:8000/api/generic/search?${params}`);
+          const res = await fetch(`${API_BASE_URL}/api/generic/search?${params}`);
           if (res.ok) {
             const data = await res.json();
             if (data && data.results) {
@@ -1161,7 +1163,7 @@ via the SignalX property verification API node.
                     setViewMode('details');
                     if (leadForm.reportType === 'none' && selectedState === 'TS' && selectedProperty) {
                       setIsCrawling(true);
-                      fetch(`http://localhost:8000/api/crawl/live`, {
+                      fetch(`${API_BASE_URL}/api/crawl/live`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ entity_name: selectedProperty.name })

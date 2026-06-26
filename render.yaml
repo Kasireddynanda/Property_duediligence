@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: rera-backend
+    env: python
+    rootDir: rera-scraper-telangana
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: DB_NAME
+        value: INFRA
