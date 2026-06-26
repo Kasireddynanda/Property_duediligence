@@ -1,0 +1,2791 @@
+nohup: ignoring input
+13:13:37 INFO [rera.advanced] MongoDB INFRA.All_projects — existing docs: 0
+13:13:39 INFO [rera.advanced] Starting advanced scrape: 32 district(s) × 4 project type(s)
+13:13:39 INFO [rera.advanced] Advanced search: Adilabad / Commercial
+13:13:42 INFO [rera.advanced]   No results for Adilabad / Commercial
+13:13:42 INFO [rera.advanced] Advanced search: Adilabad / Residential
+13:13:45 INFO [rera.advanced]   Page 1/1: 2 row(s) (total records: 2)
+13:13:45 INFO [rera.advanced]   Collected 2 row(s) for Adilabad / Residential
+13:13:45 INFO [rera.advanced]   Saved 2 row(s) to INFRA.All_projects
+13:13:45 INFO [rera.advanced] Advanced search: Adilabad / Plotted Development
+13:13:49 INFO [rera.advanced]   Page 1/4: 10 row(s) (total records: 38)
+13:13:56 INFO [rera.advanced]   Page 3/4: 10 row(s) (total records: 38)
+13:14:29 ERROR [rera.advanced]   Failed Adilabad / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnNext")
+    - locator resolved to <button id="btnNext" value="Next" type="submit" name="Command" disabled="disabled" class="btn btn-success cancel">↵            Next</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+13:14:29 INFO [rera.advanced] Advanced search: Adilabad / Mixed Development (Residential & Commercial)
+13:14:32 INFO [rera.advanced]   No results for Adilabad / Mixed Development (Residential & Commercial)
+13:14:32 INFO [rera.advanced] Advanced search: Bhadradri Kothagudem / Commercial
+13:14:35 INFO [rera.advanced]   No results for Bhadradri Kothagudem / Commercial
+13:14:35 INFO [rera.advanced] Advanced search: Bhadradri Kothagudem / Residential
+13:14:39 INFO [rera.advanced]   Page 1/3: 10 row(s) (total records: 28)
+13:14:45 INFO [rera.advanced]   Page 3/3: 8 row(s) (total records: 28)
+13:14:45 INFO [rera.advanced]   Collected 18 row(s) for Bhadradri Kothagudem / Residential
+13:14:45 INFO [rera.advanced]   Saved 18 row(s) to INFRA.All_projects
+13:14:45 INFO [rera.advanced] Advanced search: Bhadradri Kothagudem / Plotted Development
+13:14:49 INFO [rera.advanced]   Page 1/2: 10 row(s) (total records: 13)
+13:15:22 ERROR [rera.advanced]   Failed Bhadradri Kothagudem / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnNext")
+    - locator resolved to <button id="btnNext" value="Next" type="submit" name="Command" disabled="disabled" class="btn btn-success cancel">↵            Next</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+13:15:22 INFO [rera.advanced] Advanced search: Bhadradri Kothagudem / Mixed Development (Residential & Commercial)
+13:15:25 INFO [rera.advanced]   No results for Bhadradri Kothagudem / Mixed Development (Residential & Commercial)
+13:15:25 INFO [rera.advanced] Advanced search: Hyderabad / Commercial
+13:15:29 INFO [rera.advanced]   Page 1/5: 10 row(s) (total records: 47)
+13:15:34 INFO [rera.advanced]   Page 3/5: 10 row(s) (total records: 47)
+13:15:40 INFO [rera.advanced]   Page 5/5: 7 row(s) (total records: 47)
+13:15:40 INFO [rera.advanced]   Collected 27 row(s) for Hyderabad / Commercial
+13:15:40 INFO [rera.advanced]   Saved 27 row(s) to INFRA.All_projects
+13:15:40 INFO [rera.advanced] Advanced search: Hyderabad / Residential
+13:15:43 INFO [rera.advanced]   Page 1/51: 10 row(s) (total records: 501)
+13:15:49 INFO [rera.advanced]   Page 3/51: 10 row(s) (total records: 501)
+13:15:55 INFO [rera.advanced]   Page 5/51: 10 row(s) (total records: 501)
+13:16:00 INFO [rera.advanced]   Page 7/51: 10 row(s) (total records: 501)
+13:16:07 INFO [rera.advanced]   Page 9/51: 10 row(s) (total records: 501)
+13:16:13 INFO [rera.advanced]   Page 11/51: 10 row(s) (total records: 501)
+13:16:19 INFO [rera.advanced]   Page 13/51: 10 row(s) (total records: 501)
+13:16:25 INFO [rera.advanced]   Page 15/51: 10 row(s) (total records: 501)
+13:16:31 INFO [rera.advanced]   Page 17/51: 10 row(s) (total records: 501)
+13:16:37 INFO [rera.advanced]   Page 19/51: 10 row(s) (total records: 501)
+13:16:42 INFO [rera.advanced]   Page 21/51: 10 row(s) (total records: 501)
+13:16:49 INFO [rera.advanced]   Page 23/51: 10 row(s) (total records: 501)
+13:16:54 INFO [rera.advanced]   Page 25/51: 10 row(s) (total records: 501)
+13:17:00 INFO [rera.advanced]   Page 27/51: 10 row(s) (total records: 501)
+13:17:10 INFO [rera.advanced]   Page 29/51: 10 row(s) (total records: 501)
+13:17:15 INFO [rera.advanced]   Page 31/51: 10 row(s) (total records: 501)
+13:17:21 INFO [rera.advanced]   Page 33/51: 10 row(s) (total records: 501)
+13:17:27 INFO [rera.advanced]   Page 35/51: 10 row(s) (total records: 501)
+13:17:33 INFO [rera.advanced]   Page 37/51: 10 row(s) (total records: 501)
+13:17:38 INFO [rera.advanced]   Page 39/51: 10 row(s) (total records: 501)
+13:17:44 INFO [rera.advanced]   Page 41/51: 10 row(s) (total records: 501)
+13:17:50 INFO [rera.advanced]   Page 43/51: 10 row(s) (total records: 501)
+13:17:56 INFO [rera.advanced]   Page 45/51: 10 row(s) (total records: 501)
+13:18:02 INFO [rera.advanced]   Page 47/51: 10 row(s) (total records: 501)
+13:18:08 INFO [rera.advanced]   Page 49/51: 10 row(s) (total records: 501)
+13:18:14 INFO [rera.advanced]   Page 51/51: 1 row(s) (total records: 501)
+13:18:14 INFO [rera.advanced]   Collected 251 row(s) for Hyderabad / Residential
+13:18:14 INFO [rera.advanced]   Saved 251 row(s) to INFRA.All_projects
+13:18:14 INFO [rera.advanced] Advanced search: Hyderabad / Plotted Development
+13:18:17 INFO [rera.advanced]   Page 1/1: 5 row(s) (total records: 5)
+13:18:17 INFO [rera.advanced]   Collected 5 row(s) for Hyderabad / Plotted Development
+13:18:17 INFO [rera.advanced]   Saved 5 row(s) to INFRA.All_projects
+13:18:17 INFO [rera.advanced] Advanced search: Hyderabad / Mixed Development (Residential & Commercial)
+13:18:20 INFO [rera.advanced]   Page 1/3: 10 row(s) (total records: 22)
+13:18:25 INFO [rera.advanced]   Page 3/3: 2 row(s) (total records: 22)
+13:18:25 INFO [rera.advanced]   Collected 12 row(s) for Hyderabad / Mixed Development (Residential & Commercial)
+13:18:25 INFO [rera.advanced]   Saved 12 row(s) to INFRA.All_projects
+13:18:25 INFO [rera.advanced] Advanced search: Jagithyal / Commercial
+13:18:28 INFO [rera.advanced]   Page 1/1: 1 row(s) (total records: 1)
+13:18:28 INFO [rera.advanced]   Collected 1 row(s) for Jagithyal / Commercial
+13:18:28 INFO [rera.advanced]   Saved 1 row(s) to INFRA.All_projects
+13:18:28 INFO [rera.advanced] Advanced search: Jagithyal / Residential
+13:18:31 INFO [rera.advanced]   Page 1/3: 10 row(s) (total records: 29)
+13:18:37 INFO [rera.advanced]   Page 3/3: 9 row(s) (total records: 29)
+13:18:37 INFO [rera.advanced]   Collected 19 row(s) for Jagithyal / Residential
+13:18:37 INFO [rera.advanced]   Saved 19 row(s) to INFRA.All_projects
+13:18:37 INFO [rera.advanced] Advanced search: Jagithyal / Plotted Development
+13:18:40 INFO [rera.advanced]   Page 1/1: 9 row(s) (total records: 9)
+13:18:40 INFO [rera.advanced]   Collected 9 row(s) for Jagithyal / Plotted Development
+13:18:40 INFO [rera.advanced]   Saved 9 row(s) to INFRA.All_projects
+13:18:40 INFO [rera.advanced] Advanced search: Jagithyal / Mixed Development (Residential & Commercial)
+13:18:43 INFO [rera.advanced]   Page 1/1: 1 row(s) (total records: 1)
+13:18:43 INFO [rera.advanced]   Collected 1 row(s) for Jagithyal / Mixed Development (Residential & Commercial)
+13:18:43 INFO [rera.advanced]   Saved 1 row(s) to INFRA.All_projects
+13:18:43 INFO [rera.advanced] Advanced search: Jangaon / Commercial
+13:18:46 INFO [rera.advanced]   No results for Jangaon / Commercial
+13:18:46 INFO [rera.advanced] Advanced search: Jangaon / Residential
+13:18:49 INFO [rera.advanced]   Page 1/1: 1 row(s) (total records: 1)
+13:18:49 INFO [rera.advanced]   Collected 1 row(s) for Jangaon / Residential
+13:18:49 INFO [rera.advanced]   Saved 1 row(s) to INFRA.All_projects
+13:18:49 INFO [rera.advanced] Advanced search: Jangaon / Plotted Development
+13:18:53 INFO [rera.advanced]   Page 1/4: 10 row(s) (total records: 37)
+13:18:58 INFO [rera.advanced]   Page 3/4: 10 row(s) (total records: 37)
+13:19:33 ERROR [rera.advanced]   Failed Jangaon / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnNext")
+    - locator resolved to <button id="btnNext" value="Next" type="submit" name="Command" disabled="disabled" class="btn btn-success cancel">↵            Next</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+13:19:33 INFO [rera.advanced] Advanced search: Jangaon / Mixed Development (Residential & Commercial)
+13:19:36 INFO [rera.advanced]   No results for Jangaon / Mixed Development (Residential & Commercial)
+13:19:36 INFO [rera.advanced] Advanced search: Jayashankar / Commercial
+13:19:39 INFO [rera.advanced]   No results for Jayashankar / Commercial
+13:19:39 INFO [rera.advanced] Advanced search: Jayashankar / Residential
+13:19:42 INFO [rera.advanced]   Page 1/1: 2 row(s) (total records: 2)
+13:19:42 INFO [rera.advanced]   Collected 2 row(s) for Jayashankar / Residential
+13:19:42 INFO [rera.advanced]   Saved 2 row(s) to INFRA.All_projects
+13:19:42 INFO [rera.advanced] Advanced search: Jayashankar / Plotted Development
+13:19:48 INFO [rera.advanced]   Page 1/2: 10 row(s) (total records: 16)
+13:20:22 ERROR [rera.advanced]   Failed Jayashankar / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnNext")
+    - locator resolved to <button id="btnNext" value="Next" type="submit" name="Command" disabled="disabled" class="btn btn-success cancel">↵            Next</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+13:20:22 INFO [rera.advanced] Advanced search: Jayashankar / Mixed Development (Residential & Commercial)
+13:20:24 INFO [rera.advanced]   No results for Jayashankar / Mixed Development (Residential & Commercial)
+13:20:24 INFO [rera.advanced] Advanced search: Jogulamba Gadwal / Commercial
+13:20:27 INFO [rera.advanced]   No results for Jogulamba Gadwal / Commercial
+13:20:27 INFO [rera.advanced] Advanced search: Jogulamba Gadwal / Residential
+13:20:30 INFO [rera.advanced]   Page 1/1: 3 row(s) (total records: 3)
+13:20:30 INFO [rera.advanced]   Collected 3 row(s) for Jogulamba Gadwal / Residential
+13:20:30 INFO [rera.advanced]   Saved 3 row(s) to INFRA.All_projects
+13:20:30 INFO [rera.advanced] Advanced search: Jogulamba Gadwal / Plotted Development
+13:20:34 INFO [rera.advanced]   Page 1/3: 10 row(s) (total records: 21)
+13:20:39 INFO [rera.advanced]   Page 3/3: 1 row(s) (total records: 21)
+13:20:39 INFO [rera.advanced]   Collected 11 row(s) for Jogulamba Gadwal / Plotted Development
+13:20:39 INFO [rera.advanced]   Saved 11 row(s) to INFRA.All_projects
+13:20:39 INFO [rera.advanced] Advanced search: Jogulamba Gadwal / Mixed Development (Residential & Commercial)
+13:20:42 INFO [rera.advanced]   No results for Jogulamba Gadwal / Mixed Development (Residential & Commercial)
+13:20:42 INFO [rera.advanced] Advanced search: Kamareddy / Commercial
+13:20:45 INFO [rera.advanced]   No results for Kamareddy / Commercial
+13:20:45 INFO [rera.advanced] Advanced search: Kamareddy / Residential
+13:20:48 INFO [rera.advanced]   Page 1/3: 10 row(s) (total records: 24)
+13:20:53 INFO [rera.advanced]   Page 3/3: 4 row(s) (total records: 24)
+13:20:53 INFO [rera.advanced]   Collected 14 row(s) for Kamareddy / Residential
+13:20:53 INFO [rera.advanced]   Saved 14 row(s) to INFRA.All_projects
+13:20:53 INFO [rera.advanced] Advanced search: Kamareddy / Plotted Development
+13:20:56 INFO [rera.advanced]   Page 1/5: 10 row(s) (total records: 50)
+13:21:02 INFO [rera.advanced]   Page 3/5: 10 row(s) (total records: 50)
+13:21:08 INFO [rera.advanced]   Page 5/5: 10 row(s) (total records: 50)
+13:21:08 INFO [rera.advanced]   Collected 30 row(s) for Kamareddy / Plotted Development
+13:21:08 INFO [rera.advanced]   Saved 30 row(s) to INFRA.All_projects
+13:21:08 INFO [rera.advanced] Advanced search: Kamareddy / Mixed Development (Residential & Commercial)
+13:21:11 INFO [rera.advanced]   No results for Kamareddy / Mixed Development (Residential & Commercial)
+13:21:11 INFO [rera.advanced] Advanced search: Karimnagar / Commercial
+13:21:14 INFO [rera.advanced]   Page 1/1: 1 row(s) (total records: 1)
+13:21:14 INFO [rera.advanced]   Collected 1 row(s) for Karimnagar / Commercial
+13:21:14 INFO [rera.advanced]   Saved 1 row(s) to INFRA.All_projects
+13:21:14 INFO [rera.advanced] Advanced search: Karimnagar / Residential
+13:21:17 INFO [rera.advanced]   Page 1/16: 10 row(s) (total records: 153)
+13:21:23 INFO [rera.advanced]   Page 3/16: 10 row(s) (total records: 153)
+13:21:29 INFO [rera.advanced]   Page 5/16: 10 row(s) (total records: 153)
+13:21:35 INFO [rera.advanced]   Page 7/16: 10 row(s) (total records: 153)
+13:21:40 INFO [rera.advanced]   Page 9/16: 10 row(s) (total records: 153)
+13:21:46 INFO [rera.advanced]   Page 11/16: 10 row(s) (total records: 153)
+13:21:51 INFO [rera.advanced]   Page 13/16: 10 row(s) (total records: 153)
+13:22:01 INFO [rera.advanced]   Page 15/16: 10 row(s) (total records: 153)
+13:22:34 ERROR [rera.advanced]   Failed Karimnagar / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnNext")
+    - locator resolved to <button id="btnNext" value="Next" type="submit" name="Command" disabled="disabled" class="btn btn-success cancel">↵            Next</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+13:22:34 INFO [rera.advanced] Advanced search: Karimnagar / Plotted Development
+13:22:38 INFO [rera.advanced]   Page 1/2: 10 row(s) (total records: 15)
+13:23:10 ERROR [rera.advanced]   Failed Karimnagar / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnNext")
+    - locator resolved to <button id="btnNext" value="Next" type="submit" name="Command" disabled="disabled" class="btn btn-success cancel">↵            Next</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not enabled
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+13:23:10 INFO [rera.advanced] Advanced search: Karimnagar / Mixed Development (Residential & Commercial)
+13:23:13 INFO [rera.advanced]   Page 1/1: 1 row(s) (total records: 1)
+13:23:13 INFO [rera.advanced]   Collected 1 row(s) for Karimnagar / Mixed Development (Residential & Commercial)
+13:23:13 INFO [rera.advanced]   Saved 1 row(s) to INFRA.All_projects
+13:23:13 INFO [rera.advanced] Advanced search: Khammam / Commercial
+13:23:16 INFO [rera.advanced]   Page 1/1: 1 row(s) (total records: 1)
+13:23:16 INFO [rera.advanced]   Collected 1 row(s) for Khammam / Commercial
+13:23:16 INFO [rera.advanced]   Saved 1 row(s) to INFRA.All_projects
+13:23:16 INFO [rera.advanced] Advanced search: Khammam / Residential
+13:23:19 INFO [rera.advanced]   No results for Khammam / Residential
+13:23:19 INFO [rera.advanced] Advanced search: Khammam / Plotted Development
+13:23:49 ERROR [rera.advanced]   Failed Khammam / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:23:49 INFO [rera.advanced] Advanced search: Khammam / Mixed Development (Residential & Commercial)
+13:24:20 ERROR [rera.advanced]   Failed Khammam / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:24:20 INFO [rera.advanced] Advanced search: Kumuram Bheem (Asifabad) / Commercial
+13:24:51 ERROR [rera.advanced]   Failed Kumuram Bheem (Asifabad) / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:24:51 INFO [rera.advanced] Advanced search: Kumuram Bheem (Asifabad) / Residential
+13:25:21 ERROR [rera.advanced]   Failed Kumuram Bheem (Asifabad) / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:25:21 INFO [rera.advanced] Advanced search: Kumuram Bheem (Asifabad) / Plotted Development
+13:25:52 ERROR [rera.advanced]   Failed Kumuram Bheem (Asifabad) / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:25:52 INFO [rera.advanced] Advanced search: Kumuram Bheem (Asifabad) / Mixed Development (Residential & Commercial)
+13:26:22 ERROR [rera.advanced]   Failed Kumuram Bheem (Asifabad) / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:26:22 INFO [rera.advanced] Advanced search: Mahabubabad / Commercial
+13:26:53 ERROR [rera.advanced]   Failed Mahabubabad / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:26:53 INFO [rera.advanced] Advanced search: Mahabubabad / Residential
+13:27:23 ERROR [rera.advanced]   Failed Mahabubabad / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:27:23 INFO [rera.advanced] Advanced search: Mahabubabad / Plotted Development
+13:27:54 ERROR [rera.advanced]   Failed Mahabubabad / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:27:54 INFO [rera.advanced] Advanced search: Mahabubabad / Mixed Development (Residential & Commercial)
+13:28:24 ERROR [rera.advanced]   Failed Mahabubabad / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:28:24 INFO [rera.advanced] Advanced search: Mahabubnagar / Commercial
+13:28:55 ERROR [rera.advanced]   Failed Mahabubnagar / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:28:55 INFO [rera.advanced] Advanced search: Mahabubnagar / Residential
+13:29:25 ERROR [rera.advanced]   Failed Mahabubnagar / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:29:25 INFO [rera.advanced] Advanced search: Mahabubnagar / Plotted Development
+13:29:56 ERROR [rera.advanced]   Failed Mahabubnagar / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:29:56 INFO [rera.advanced] Advanced search: Mahabubnagar / Mixed Development (Residential & Commercial)
+13:30:26 ERROR [rera.advanced]   Failed Mahabubnagar / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:30:26 INFO [rera.advanced] Advanced search: Mancherial / Commercial
+13:30:57 ERROR [rera.advanced]   Failed Mancherial / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:30:57 INFO [rera.advanced] Advanced search: Mancherial / Residential
+13:31:27 ERROR [rera.advanced]   Failed Mancherial / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:31:27 INFO [rera.advanced] Advanced search: Mancherial / Plotted Development
+13:31:58 ERROR [rera.advanced]   Failed Mancherial / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:31:58 INFO [rera.advanced] Advanced search: Mancherial / Mixed Development (Residential & Commercial)
+13:32:28 ERROR [rera.advanced]   Failed Mancherial / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:32:28 INFO [rera.advanced] Advanced search: Medak / Commercial
+13:32:59 ERROR [rera.advanced]   Failed Medak / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:32:59 INFO [rera.advanced] Advanced search: Medak / Residential
+13:33:29 ERROR [rera.advanced]   Failed Medak / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:33:29 INFO [rera.advanced] Advanced search: Medak / Plotted Development
+13:34:00 ERROR [rera.advanced]   Failed Medak / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:34:00 INFO [rera.advanced] Advanced search: Medak / Mixed Development (Residential & Commercial)
+13:34:31 ERROR [rera.advanced]   Failed Medak / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:34:31 INFO [rera.advanced] Advanced search: Medchal-Malkajgiri / Commercial
+13:35:01 ERROR [rera.advanced]   Failed Medchal-Malkajgiri / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:35:01 INFO [rera.advanced] Advanced search: Medchal-Malkajgiri / Residential
+13:35:32 ERROR [rera.advanced]   Failed Medchal-Malkajgiri / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:35:32 INFO [rera.advanced] Advanced search: Medchal-Malkajgiri / Plotted Development
+13:36:02 ERROR [rera.advanced]   Failed Medchal-Malkajgiri / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:36:02 INFO [rera.advanced] Advanced search: Medchal-Malkajgiri / Mixed Development (Residential & Commercial)
+13:36:33 ERROR [rera.advanced]   Failed Medchal-Malkajgiri / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:36:33 INFO [rera.advanced] Advanced search: Nagarkurnool / Commercial
+13:37:03 ERROR [rera.advanced]   Failed Nagarkurnool / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:37:03 INFO [rera.advanced] Advanced search: Nagarkurnool / Residential
+13:37:34 ERROR [rera.advanced]   Failed Nagarkurnool / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:37:34 INFO [rera.advanced] Advanced search: Nagarkurnool / Plotted Development
+13:38:04 ERROR [rera.advanced]   Failed Nagarkurnool / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:38:04 INFO [rera.advanced] Advanced search: Nagarkurnool / Mixed Development (Residential & Commercial)
+13:38:35 ERROR [rera.advanced]   Failed Nagarkurnool / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:38:35 INFO [rera.advanced] Advanced search: Nalgonda / Commercial
+13:39:05 ERROR [rera.advanced]   Failed Nalgonda / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:39:05 INFO [rera.advanced] Advanced search: Nalgonda / Residential
+13:39:36 ERROR [rera.advanced]   Failed Nalgonda / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:39:36 INFO [rera.advanced] Advanced search: Nalgonda / Plotted Development
+13:40:06 ERROR [rera.advanced]   Failed Nalgonda / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:40:06 INFO [rera.advanced] Advanced search: Nalgonda / Mixed Development (Residential & Commercial)
+13:40:37 ERROR [rera.advanced]   Failed Nalgonda / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:40:37 INFO [rera.advanced] Advanced search: Narayanpet / Commercial
+13:41:07 ERROR [rera.advanced]   Failed Narayanpet / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:41:07 INFO [rera.advanced] Advanced search: Narayanpet / Residential
+13:41:38 ERROR [rera.advanced]   Failed Narayanpet / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:41:38 INFO [rera.advanced] Advanced search: Narayanpet / Plotted Development
+13:42:08 ERROR [rera.advanced]   Failed Narayanpet / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:42:08 INFO [rera.advanced] Advanced search: Narayanpet / Mixed Development (Residential & Commercial)
+13:42:39 ERROR [rera.advanced]   Failed Narayanpet / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:42:39 INFO [rera.advanced] Advanced search: Nirmal / Commercial
+13:43:09 ERROR [rera.advanced]   Failed Nirmal / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:43:09 INFO [rera.advanced] Advanced search: Nirmal / Residential
+13:43:40 ERROR [rera.advanced]   Failed Nirmal / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:43:40 INFO [rera.advanced] Advanced search: Nirmal / Plotted Development
+13:44:10 ERROR [rera.advanced]   Failed Nirmal / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:44:10 INFO [rera.advanced] Advanced search: Nirmal / Mixed Development (Residential & Commercial)
+13:44:41 ERROR [rera.advanced]   Failed Nirmal / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:44:41 INFO [rera.advanced] Advanced search: Nizamabad / Commercial
+13:45:12 ERROR [rera.advanced]   Failed Nizamabad / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:45:12 INFO [rera.advanced] Advanced search: Nizamabad / Residential
+13:45:42 ERROR [rera.advanced]   Failed Nizamabad / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:45:42 INFO [rera.advanced] Advanced search: Nizamabad / Plotted Development
+13:46:13 ERROR [rera.advanced]   Failed Nizamabad / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:46:13 INFO [rera.advanced] Advanced search: Nizamabad / Mixed Development (Residential & Commercial)
+13:46:43 ERROR [rera.advanced]   Failed Nizamabad / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:46:43 INFO [rera.advanced] Advanced search: Peddapalli / Commercial
+13:47:14 ERROR [rera.advanced]   Failed Peddapalli / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:47:14 INFO [rera.advanced] Advanced search: Peddapalli / Residential
+13:47:44 ERROR [rera.advanced]   Failed Peddapalli / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:47:44 INFO [rera.advanced] Advanced search: Peddapalli / Plotted Development
+13:48:15 ERROR [rera.advanced]   Failed Peddapalli / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:48:15 INFO [rera.advanced] Advanced search: Peddapalli / Mixed Development (Residential & Commercial)
+13:48:45 ERROR [rera.advanced]   Failed Peddapalli / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:48:45 INFO [rera.advanced] Advanced search: Rajanna Sircilla / Commercial
+13:49:16 ERROR [rera.advanced]   Failed Rajanna Sircilla / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:49:16 INFO [rera.advanced] Advanced search: Rajanna Sircilla / Residential
+13:49:46 ERROR [rera.advanced]   Failed Rajanna Sircilla / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:49:46 INFO [rera.advanced] Advanced search: Rajanna Sircilla / Plotted Development
+13:50:17 ERROR [rera.advanced]   Failed Rajanna Sircilla / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:50:17 INFO [rera.advanced] Advanced search: Rajanna Sircilla / Mixed Development (Residential & Commercial)
+13:50:47 ERROR [rera.advanced]   Failed Rajanna Sircilla / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:50:47 INFO [rera.advanced] Advanced search: Ranga Reddy / Commercial
+13:51:18 ERROR [rera.advanced]   Failed Ranga Reddy / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:51:18 INFO [rera.advanced] Advanced search: Ranga Reddy / Residential
+13:51:48 ERROR [rera.advanced]   Failed Ranga Reddy / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:51:48 INFO [rera.advanced] Advanced search: Ranga Reddy / Plotted Development
+13:52:19 ERROR [rera.advanced]   Failed Ranga Reddy / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:52:19 INFO [rera.advanced] Advanced search: Ranga Reddy / Mixed Development (Residential & Commercial)
+13:52:49 ERROR [rera.advanced]   Failed Ranga Reddy / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:52:49 INFO [rera.advanced] Advanced search: Sangareddy / Commercial
+13:53:20 ERROR [rera.advanced]   Failed Sangareddy / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:53:20 INFO [rera.advanced] Advanced search: Sangareddy / Residential
+13:53:50 ERROR [rera.advanced]   Failed Sangareddy / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:53:50 INFO [rera.advanced] Advanced search: Sangareddy / Plotted Development
+13:54:21 ERROR [rera.advanced]   Failed Sangareddy / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:54:21 INFO [rera.advanced] Advanced search: Sangareddy / Mixed Development (Residential & Commercial)
+13:54:51 ERROR [rera.advanced]   Failed Sangareddy / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:54:51 INFO [rera.advanced] Advanced search: Siddipet / Commercial
+13:55:22 ERROR [rera.advanced]   Failed Siddipet / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:55:22 INFO [rera.advanced] Advanced search: Siddipet / Residential
+13:55:52 ERROR [rera.advanced]   Failed Siddipet / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:55:52 INFO [rera.advanced] Advanced search: Siddipet / Plotted Development
+13:56:23 ERROR [rera.advanced]   Failed Siddipet / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:56:23 INFO [rera.advanced] Advanced search: Siddipet / Mixed Development (Residential & Commercial)
+13:56:53 ERROR [rera.advanced]   Failed Siddipet / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:56:53 INFO [rera.advanced] Advanced search: Suryapet / Commercial
+13:57:24 ERROR [rera.advanced]   Failed Suryapet / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:57:24 INFO [rera.advanced] Advanced search: Suryapet / Residential
+13:57:54 ERROR [rera.advanced]   Failed Suryapet / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:57:54 INFO [rera.advanced] Advanced search: Suryapet / Plotted Development
+13:58:25 ERROR [rera.advanced]   Failed Suryapet / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:58:25 INFO [rera.advanced] Advanced search: Suryapet / Mixed Development (Residential & Commercial)
+13:58:56 ERROR [rera.advanced]   Failed Suryapet / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:58:56 INFO [rera.advanced] Advanced search: Vikarabad / Commercial
+13:59:26 ERROR [rera.advanced]   Failed Vikarabad / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:59:26 INFO [rera.advanced] Advanced search: Vikarabad / Residential
+13:59:57 ERROR [rera.advanced]   Failed Vikarabad / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+13:59:57 INFO [rera.advanced] Advanced search: Vikarabad / Plotted Development
+14:00:27 ERROR [rera.advanced]   Failed Vikarabad / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:00:27 INFO [rera.advanced] Advanced search: Vikarabad / Mixed Development (Residential & Commercial)
+14:00:58 ERROR [rera.advanced]   Failed Vikarabad / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:00:58 INFO [rera.advanced] Advanced search: Wanaparthy / Commercial
+14:01:28 ERROR [rera.advanced]   Failed Wanaparthy / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:01:28 INFO [rera.advanced] Advanced search: Wanaparthy / Residential
+14:01:59 ERROR [rera.advanced]   Failed Wanaparthy / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:01:59 INFO [rera.advanced] Advanced search: Wanaparthy / Plotted Development
+14:02:29 ERROR [rera.advanced]   Failed Wanaparthy / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:02:29 INFO [rera.advanced] Advanced search: Wanaparthy / Mixed Development (Residential & Commercial)
+14:03:00 ERROR [rera.advanced]   Failed Wanaparthy / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:03:00 INFO [rera.advanced] Advanced search: Warangal Rural / Commercial
+14:03:30 ERROR [rera.advanced]   Failed Warangal Rural / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:03:30 INFO [rera.advanced] Advanced search: Warangal Rural / Residential
+14:04:01 ERROR [rera.advanced]   Failed Warangal Rural / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:04:01 INFO [rera.advanced] Advanced search: Warangal Rural / Plotted Development
+14:04:31 ERROR [rera.advanced]   Failed Warangal Rural / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:04:31 INFO [rera.advanced] Advanced search: Warangal Rural / Mixed Development (Residential & Commercial)
+14:05:02 ERROR [rera.advanced]   Failed Warangal Rural / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:05:02 INFO [rera.advanced] Advanced search: Warangal Urban / Commercial
+14:05:32 ERROR [rera.advanced]   Failed Warangal Urban / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:05:32 INFO [rera.advanced] Advanced search: Warangal Urban / Residential
+14:06:03 ERROR [rera.advanced]   Failed Warangal Urban / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:06:03 INFO [rera.advanced] Advanced search: Warangal Urban / Plotted Development
+14:06:33 ERROR [rera.advanced]   Failed Warangal Urban / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:06:33 INFO [rera.advanced] Advanced search: Warangal Urban / Mixed Development (Residential & Commercial)
+14:07:04 ERROR [rera.advanced]   Failed Warangal Urban / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:07:04 INFO [rera.advanced] Advanced search: Yadadri Bhuvanagiri / Commercial
+14:07:34 ERROR [rera.advanced]   Failed Yadadri Bhuvanagiri / Commercial: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:07:34 INFO [rera.advanced] Advanced search: Yadadri Bhuvanagiri / Residential
+14:08:05 ERROR [rera.advanced]   Failed Yadadri Bhuvanagiri / Residential: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:08:05 INFO [rera.advanced] Advanced search: Yadadri Bhuvanagiri / Plotted Development
+14:08:35 ERROR [rera.advanced]   Failed Yadadri Bhuvanagiri / Plotted Development: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:08:35 INFO [rera.advanced] Advanced search: Yadadri Bhuvanagiri / Mixed Development (Residential & Commercial)
+14:09:06 ERROR [rera.advanced]   Failed Yadadri Bhuvanagiri / Mixed Development (Residential & Commercial): Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#btnSearch")
+    - locator resolved to <input type="submit" value="Search" name="Command" id="btnSearch" class="btn btn-info btn-sm"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div tabindex="-1" class="sweet-overlay"></div> from <div class="sweet-container">…</div> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+14:09:06 INFO [rera.advanced] Advanced scrape finished: 409 total row(s)
+14:09:06 INFO [rera.advanced] MongoDB INFRA.All_projects — total docs after scrape: 409
+Done. Scraped 409 table row(s).
