@@ -73,7 +73,7 @@ export default function TelanganaMapModal({
   isOpen,
   onClose,
   searchQuery = '',
-  apiBaseUrl = 'http://localhost:8000',
+  apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://property-duediligence.onrender.com',
 }: TelanganaMapModalProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
