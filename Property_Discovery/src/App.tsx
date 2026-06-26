@@ -370,7 +370,6 @@ function App() {
             page: "1",
             page_size: "5"
           });
-          const port = selectedState === 'KA' ? '8002' : selectedState === 'TN' ? '8001' : '8000';
           const res = await fetch(`${API_BASE_URL}/api/infra/search?${params}`);
           if (res.ok) {
             const data = await res.json();
