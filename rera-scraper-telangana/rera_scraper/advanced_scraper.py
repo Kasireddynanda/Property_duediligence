@@ -416,7 +416,7 @@ class AdvancedSearchScraper:
 async def run_advanced_scraper(
     *,
     headless: bool = True,
-    mongo_uri: str = "mongodb://localhost:27017",
+    mongo_uri: str = __import__("os").getenv("MONGO_URI", "mongodb://localhost:27017"),
     mongo_db: str = "INFRA",
     mongo_collection: str = "All_projects",
     district_ids: list[str] | None = None,

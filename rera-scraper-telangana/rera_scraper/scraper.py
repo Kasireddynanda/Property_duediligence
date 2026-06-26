@@ -372,7 +372,7 @@ async def run_scraper(
     output_path: str | None = None,
     headless: bool = True,
     follow_promoter_search: bool = True,
-    mongo_uri: str = "mongodb://localhost:27017",
+    mongo_uri: str = __import__("os").getenv("MONGO_URI", "mongodb://localhost:27017"),
     mongo_db: str = "RERA-DETAILS",
     mongo_collection: str = "DETAILS",
     save_mongo: bool = True,

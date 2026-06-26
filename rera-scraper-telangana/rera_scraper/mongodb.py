@@ -13,7 +13,7 @@ from pymongo.collection import Collection
 class ReraMongoStore:
     def __init__(
         self,
-        uri: str = "mongodb://localhost:27017",
+        uri: str = __import__("os").getenv("MONGO_URI", "mongodb://localhost:27017"),
         db_name: str = "RERA-DETAILS",
         collection_name: str = "DETAILS",
     ) -> None:

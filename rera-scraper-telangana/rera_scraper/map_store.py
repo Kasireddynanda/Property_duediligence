@@ -9,7 +9,7 @@ from pymongo.collection import Collection
 class MapTelanganaStore:
     def __init__(
         self,
-        uri: str = "mongodb://localhost:27017",
+        uri: str = __import__("os").getenv("MONGO_URI", "mongodb://localhost:27017"),
         db_name: str = "INFRA",
         collection_name: str = "Map_telangana",
     ) -> None:
