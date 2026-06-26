@@ -5,3 +5,4 @@ output/
 *.xlsx
 *.csv
 .pytest_cache/
+.env

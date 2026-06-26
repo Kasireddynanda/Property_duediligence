@@ -158,7 +158,10 @@ class ReraScraper:
         for i in range(row_count):
             row = table.nth(i)
             cells = row.locator("td")
-            detail_href = await row.locator("a.btn-primary").first.get_attribute("href")
+            detail_btn = row.locator("a.btn-primary")
+            if await detail_btn.count() == 0:
+                continue
+            detail_href = await detail_btn.first.get_attribute("href")
             if not detail_href:
                 continue
 

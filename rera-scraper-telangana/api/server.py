@@ -13,6 +13,14 @@ from pydantic import BaseModel, EmailStr, Field
 from rera_scraper.mongodb import ReraMongoStore
 from rera_scraper.report_service import create_pending_report, run_background_scrape
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+DB_NAME = os.getenv("DB_NAME", "INFRA")
+
 app = FastAPI(title="RERA Report API", version="1.0.0")
 
 ALLOWED_ORIGINS = [
@@ -198,3 +206,108 @@ def get_telangana_map_project(project_id: str) -> dict[str, Any]:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     finally:
         search.close()
+
+class LiveCrawlRequest(BaseModel):
+    entity_name: str
+
+@app.post("/api/crawl/live")
+async def crawl_live(body: LiveCrawlRequest) -> dict[str, Any]:
+    from rera_scraper.scraper import run_scraper
+    try:
+        records = await run_scraper(
+            project_names=[body.entity_name],
+            headless=True,
+            follow_promoter_search=False,
+            save_mongo=False
+        )
+        if not records:
+            return {"status": "error", "message": "No records found", "data": None}
+        return {"status": "success", "data": records[0]}
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+@app.get("/api/generic/search")
+def generic_search(q: str, collection: str, page: int = 1, page_size: int = 20) -> dict[str, Any]:
+    from pymongo import MongoClient
+    import re
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+    db = client[DB_NAME]
+    coll = db[collection]
+    
+    tokens = [t for t in re.split(r"\s+", q.strip()) if t]
+    or_clauses = []
+    for field in ["project_name", "promoter_name"]:
+        for token in tokens:
+            or_clauses.append({field: {"$regex": re.escape(token), "$options": "i"}})
+            
+    query = {"$or": or_clauses} if or_clauses else {}
+    
+    skip = (page - 1) * page_size
+    cursor = coll.find(query, {"_id": 0}).skip(skip).limit(page_size)
+    results = list(cursor)
+    total = coll.count_documents(query)
+    client.close()
+    
+    return {
+        "total_count": total,
+        "page": page,
+        "page_size": page_size,
+        "results": results
+    }
+
+@app.get("/api/generic/details")
+def generic_details(project_name: str, collection: str) -> dict[str, Any]:
+    from pymongo import MongoClient
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+    db = client[DB_NAME]
+    coll = db[collection]
+    doc = coll.find_one({"project_name": project_name}, {"_id": 0})
+    client.close()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return {"status": "success", "data": doc}
+
+class RecentSearch(BaseModel):
+    query: str
+    state: str
+    property_name: str | None = None
+    rera_id: str | None = None
+
+@app.post("/api/recent-searches")
+def store_recent_search(search: RecentSearch) -> dict[str, Any]:
+    from pymongo import MongoClient
+    from datetime import datetime
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+    db = client[DB_NAME]
+    coll = db["Recent_searches"]
+    
+    doc = search.model_dump()
+    doc["timestamp"] = datetime.utcnow().isoformat()
+    
+    coll.insert_one(doc)
+    client.close()
+    return {"status": "success", "message": "Recent search stored"}
+
+@app.get("/api/recent-searches")
+def get_recent_searches(limit: int = 6) -> dict[str, Any]:
+    from pymongo import MongoClient
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+    db = client[DB_NAME]
+    coll = db["Recent_searches"]
+    
+    cursor = coll.find({}, {"_id": 0}).sort("timestamp", -1).limit(50)
+    results = list(cursor)
+    
+    unique_queries = []
+    seen = set()
+    for r in results:
+        prop_name = r.get("property_name") or ""
+        q = prop_name.strip()
+        if q and q.lower() not in seen:
+            seen.add(q.lower())
+            unique_queries.append(q)
+            if len(unique_queries) >= limit:
+                break
+                
+    client.close()
+    return {"status": "success", "data": unique_queries}

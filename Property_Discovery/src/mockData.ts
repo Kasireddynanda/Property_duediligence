@@ -51,6 +51,8 @@ export interface Property {
   titleChain: TitleChainNode[];
   litigations: LitigationCase[];
   taxCompliance: TaxRecord[];
+  liveDetails?: any;
+  originalData?: any;
 }
 
 export const MOCK_PROPERTIES: Property[] = [];
