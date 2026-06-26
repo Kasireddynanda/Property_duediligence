@@ -21,6 +21,9 @@ load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 DB_NAME = os.getenv("DB_NAME", "INFRA")
 
+print("DEBUG => MONGO_URI =", repr(MONGO_URI))
+print("DEBUG => DB_NAME =", repr(DB_NAME))
+
 app = FastAPI(title="RERA Report API", version="1.0.0")
 
 ALLOWED_ORIGINS = [
