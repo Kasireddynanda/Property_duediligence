@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build --prefix Property_Discovery",
+  "outputDirectory": "Property_Discovery/dist",
+  "installCommand": "npm install --prefix Property_Discovery",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
