@@ -238,8 +238,17 @@ def generic_search(q: str, collection: str, page: int = 1, page_size: int = 20) 
     coll = db[collection]
     
     tokens = [t for t in re.split(r"\s+", q.strip()) if t]
+    search_fields = ["project_name", "promoter_name"]
+    if collection == "Telangana_Detailed":
+        search_fields.extend(
+            [
+                "promoter_organization_name",
+                "rera_registration_id",
+                "search.district_name",
+            ]
+        )
     or_clauses = []
-    for field in ["project_name", "promoter_name"]:
+    for field in search_fields:
         for token in tokens:
             or_clauses.append({field: {"$regex": re.escape(token), "$options": "i"}})
             
@@ -259,12 +268,19 @@ def generic_search(q: str, collection: str, page: int = 1, page_size: int = 20) 
     }
 
 @app.get("/api/generic/details")
-def generic_details(project_name: str, collection: str) -> dict[str, Any]:
+def generic_details(
+    project_name: str,
+    collection: str,
+    rera_id: str | None = None,
+) -> dict[str, Any]:
     from pymongo import MongoClient
     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
     db = client[DB_NAME]
     coll = db[collection]
-    doc = coll.find_one({"project_name": project_name}, {"_id": 0})
+    query: dict[str, Any] = {"project_name": project_name}
+    if rera_id:
+        query["rera_registration_id"] = rera_id
+    doc = coll.find_one(query, {"_id": 0})
     client.close()
     if not doc:
         raise HTTPException(status_code=404, detail="Project not found")

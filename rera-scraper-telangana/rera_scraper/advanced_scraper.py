@@ -31,6 +31,32 @@ def _filter_from_option(
     raise ValueError(f"Start id {from_id!r} not found in dropdown options")
 
 
+def _project_identity_key(row: dict[str, Any]) -> tuple[str, str, str, str]:
+    from .hashing import project_identity_key
+
+    return project_identity_key(row)
+
+
+def _merge_listing_and_detail(
+    listing: dict[str, Any],
+    detail: dict[str, Any],
+) -> dict[str, Any]:
+    from .hashing import content_hash, district_hash
+
+    search = listing.get("search") or {}
+    district_id = str(search.get("district_id", ""))
+    district_name = str(search.get("district_name", ""))
+    detail_body = {k: v for k, v in detail.items() if k != "detail_url"}
+
+    return {
+        **listing,
+        **detail,
+        "district_hash": district_hash(district_id, district_name),
+        "content_hash": content_hash(detail_body),
+        "state": "Telangana",
+    }
+
+
 @dataclass
 class DropdownOption:
     value: str
@@ -61,6 +87,12 @@ class AdvancedSearchScraper:
         if not self._page:
             raise RuntimeError("Scraper not started.")
         return self._page
+
+    @property
+    def context(self) -> BrowserContext:
+        if not self._context:
+            raise RuntimeError("Scraper not started.")
+        return self._context
 
     def _log(self, message: str, level: str = "info") -> None:
         if self.log_fn:
@@ -328,6 +360,79 @@ class AdvancedSearchScraper:
                 )
 
         return rows
+
+    async def scrape_project_detail(self, detail_url: str) -> dict[str, Any]:
+        from .extractors import extract_project_detail
+
+        detail_page = await self.context.new_page()
+        try:
+            await detail_page.goto(detail_url, wait_until="networkidle", timeout=90000)
+            await detail_page.wait_for_selector(".container-print", timeout=45000)
+            return await extract_project_detail(detail_page)
+        finally:
+            await detail_page.close()
+
+    async def scrape_combination_with_details(
+        self,
+        district: DropdownOption,
+        project_type: DropdownOption,
+        *,
+        max_pages: int | None = None,
+        skip_keys: set[tuple[str, str, str, str]] | None = None,
+        on_record: Callable[[dict[str, Any]], None] | None = None,
+    ) -> int:
+        label = f"{district.label} / {project_type.label}"
+        self._log(f"Advanced search + details: {label}")
+        await self.open_search_page()
+        await self._dismiss_blocking_overlays()
+        await self._submit_advanced_search(district, project_type)
+        await self._dismiss_blocking_overlays()
+
+        if not await self._has_results():
+            self._log(f"  No results for {label}")
+            return 0
+
+        skip_keys = skip_keys or set()
+        saved_count = 0
+
+        while True:
+            current, total_pages, total_records = await self._pagination_info()
+            page_rows = await self._parse_table_rows(district, project_type)
+            self._log(
+                f"  Page {current}/{total_pages}: {len(page_rows)} row(s) "
+                f"(total records: {total_records})"
+            )
+
+            for row in page_rows:
+                key = _project_identity_key(row)
+                if key in skip_keys:
+                    self._log(f"  Skipping existing detail: {row['project_name']}")
+                    continue
+
+                try:
+                    self._log(f"  Scraping detail: {row['project_name']}")
+                    detail = await self.scrape_project_detail(row["detail_url"])
+                    record = _merge_listing_and_detail(row, detail)
+                    skip_keys.add(key)
+                    saved_count += 1
+                    if on_record:
+                        on_record(record)
+                except Exception as exc:
+                    self._log(
+                        f"  Detail scrape failed for {row['project_name']}: {exc}",
+                        level="error",
+                    )
+
+            if max_pages is not None and current >= max_pages:
+                break
+            if not await self._has_next_page():
+                break
+
+            await self._go_next_page()
+
+        self._log(f"  Saved {saved_count} detailed record(s) for {label}")
+        await self._dismiss_blocking_overlays()
+        return saved_count
 
     async def scrape_combination(
         self,

@@ -89,6 +89,79 @@ const STATE_OPTIONS = [
   { code: 'KA', label: 'Karnataka (KA)' },
 ] as const;
 
+const TELANGANA_DETAIL_SECTIONS = [
+  'promoter_information',
+  'project_information',
+  'land_details',
+  'built_up_area_details',
+  'bank_details',
+  'address_details',
+  'member_information',
+] as const;
+
+function buildTelanganaLiveDetails(project: any): Record<string, Record<string, unknown>> {
+  const sections: Record<string, Record<string, unknown>> = {};
+  for (const key of TELANGANA_DETAIL_SECTIONS) {
+    const value = project[key];
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      sections[key] = value;
+    }
+  }
+  if (project.certificate && typeof project.certificate === 'object') {
+    sections.certificate = project.certificate;
+  }
+  return sections;
+}
+
+function hasTelanganaDetailedSections(payload: any): boolean {
+  return Boolean(
+    payload?.project_information ||
+      payload?.promoter_information ||
+      payload?.land_details ||
+      payload?.bank_details
+  );
+}
+
+function applyTelanganaDbRecord(base: Property, dbRecord: any): Property {
+  const liveDetails = buildTelanganaLiveDetails(dbRecord);
+  const address = dbRecord.address_details || {};
+  const locationParts = [
+    address['Street Name'],
+    address.Locality,
+    address.District,
+    address.State,
+  ].filter(Boolean);
+
+  return {
+    ...base,
+    name: dbRecord.project_name || base.name,
+    ownerName:
+      dbRecord.promoter_organization_name ||
+      dbRecord.promoter_information?.['Organization Name'] ||
+      dbRecord.promoter_name ||
+      base.ownerName,
+    reraId:
+      dbRecord.rera_registration_id ||
+      dbRecord.project_information?.['Registration Number'] ||
+      base.reraId,
+    location: locationParts.length > 0 ? locationParts.join(', ') : base.location,
+    reraFilingDate:
+      dbRecord.project_information?.['Approved Date'] ||
+      dbRecord.registration_date ||
+      dbRecord.last_modified ||
+      base.reraFilingDate,
+    zone:
+      dbRecord.project_information?.['Project Type'] ||
+      dbRecord.search?.project_type_name ||
+      base.zone,
+    financialStatus: dbRecord.bank_details?.['Bank Name']
+      ? `Financed by ${dbRecord.bank_details['Bank Name']}`
+      : base.financialStatus,
+    liveDetails: Object.keys(liveDetails).length > 0 ? liveDetails : base.liveDetails,
+    originalData: dbRecord,
+  };
+}
+
 // Map RERA scraped projects search items into a uniform Property structure
 function transformInfraToProperty(project: any): Property {
   let detailedPayload = project;
@@ -148,17 +221,40 @@ function transformInfraToProperty(project: any): Property {
     }
 
     detailedPayload = Object.keys(flattened).length > 0 ? flattened : project;
+  } else if (hasTelanganaDetailedSections(project)) {
+    detailedPayload = buildTelanganaLiveDetails(project);
   } else if (!project.project_info && !project.project_information && !project.promoter_organization_name) {
     detailedPayload = undefined;
   }
 
-  const pId = project.registration_no || project.detail_url?.match(/project_id=([^&]+)/)?.[1] || 'RERA-' + Math.floor(100000 + Math.random() * 900000);
+  const address = project.address_details || {};
+  const locationParts = [
+    address['Street Name'],
+    address.Locality,
+    address.District,
+    address.State,
+  ].filter(Boolean);
+  const location =
+    locationParts.length > 0
+      ? locationParts.join(', ')
+      : (project.search?.district_name || project.district || 'District Registry') + ', India';
+
+  const pId =
+    project.rera_registration_id ||
+    project.registration_no ||
+    project.project_information?.['Registration Number'] ||
+    project.detail_url?.match(/project_id=([^&]+)/)?.[1] ||
+    'RERA-' + Math.floor(100000 + Math.random() * 900000);
   return {
     id: `infra-project-${(project.project_name || 'unknown').toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
     name: project.project_name || 'Unknown RERA Project',
-    location: (project.search?.district_name || project.district || 'District Registry') + ', India',
+    location,
     surveyNo: 'Pending land parcel boundary partition SRO check',
-    ownerName: project.promoter_name || 'Unknown Promoter',
+    ownerName:
+      project.promoter_organization_name ||
+      project.promoter_information?.['Organization Name'] ||
+      project.promoter_name ||
+      'Unknown Promoter',
     reraId: pId,
     pinCode: 'N/A',
     status: 'medium',
@@ -166,14 +262,21 @@ function transformInfraToProperty(project: any): Property {
     titleStatus: 'Under construction',
     litigationCount: '0 Active (Awaiting manual check)',
     financialStatus: 'Promoter: ' + (project.promoter_name || 'N/A'),
-    zone: project.search?.project_type_name || 'Residential/Commercial Development',
+    zone:
+      project.project_information?.['Project Type'] ||
+      project.search?.project_type_name ||
+      'Residential/Commercial Development',
     areaAcres: 4.8,
     latLong: project.latitude && project.longitude ? `${project.latitude}° N, ${project.longitude}° E` : '12.9716° N, 77.5946° E',
     elevation: 'N/A',
     nearbyWaterbody: 'Buffer zone compliance check pending',
     reraProgress: 80,
     reraDeveloper: project.promoter_name || 'Regulatory Board Registered',
-    reraFilingDate: project.registration_date || project.last_modified || 'N/A',
+    reraFilingDate:
+      project.project_information?.['Approved Date'] ||
+      project.registration_date ||
+      project.last_modified ||
+      'N/A',
     reraApprovedArea: 'Files logged in regional RERA portal',
     boundaryShape: { x: 0, y: 0, w: 120, h: 120 },
     titleChain: [
@@ -263,7 +366,7 @@ function App() {
          litsText = 'active litigations';
       }
 
-      const fullText = `Based on the live RERA registry database, ${pName} (Registration: ${reraId}) is a ${pType} project officially registered under ${promoter}. The project's development was authorized on ${approved} and has a proposed completion timeline targeting ${target}. The property spans an area of ${area} in the ${dist} region. According to the latest financial disclosures, the project is banking with ${bank} with a declared project cost of ${cost}. Furthermore, our preliminary scan of the registry indicates that there are currently ${litsText} flagged against this project. This AI-generated overview verifies the project's foundational legitimacy, providing immediate transparency into its regulatory standing within the state's framework.`;
+      const fullText = `Based on the RERA registry database, ${pName} (Registration: ${reraId}) is a ${pType} project officially registered under ${promoter}. The project's development was authorized on ${approved} and has a proposed completion timeline targeting ${target}. The property spans an area of ${area} in the ${dist} region. According to the latest financial disclosures, the project is banking with ${bank} with a declared project cost of ${cost}. Furthermore, our preliminary scan of the registry indicates that there are currently ${litsText} flagged against this project. This AI-generated overview verifies the project's foundational legitimacy, providing immediate transparency into its regulatory standing within the state's framework.`;
 
       const words = fullText.split(' ');
       let index = 0;
@@ -332,8 +435,13 @@ function App() {
 
       // 3. Fetch from local RERA Search API
       try {
-        if (selectedState === 'DL' || selectedState === 'MP') {
-          const collectionName = selectedState === 'DL' ? 'Delhi_allprojects_detailed' : 'MP_detailed';
+        if (selectedState === 'DL' || selectedState === 'MP' || selectedState === 'TS') {
+          const collectionName =
+            selectedState === 'DL'
+              ? 'Delhi_allprojects_detailed'
+              : selectedState === 'MP'
+                ? 'MP_detailed'
+                : 'Telangana_Detailed';
           const params = new URLSearchParams({
             q: query,
             collection: collectionName,
@@ -347,14 +455,16 @@ function App() {
               const infraMatches = data.results.map((project: any) => {
                 const score = Math.max(
                   fuzzyScore(query, project.project_name || ''),
-                  fuzzyScore(query, project.promoter_name || '')
+                  fuzzyScore(query, project.promoter_name || ''),
+                  fuzzyScore(query, project.promoter_organization_name || ''),
+                  fuzzyScore(query, project.rera_registration_id || '')
                 );
                 return {
                   id: `infra-${(project.project_name || 'unknown').replace(/\s+/g, '_')}`,
                   type: 'infra_project' as const,
                   name: project.project_name || 'Unknown Project',
-                  subtitle: `Promoter: ${project.promoter_name || 'Unknown'} | District: ${project.district || project.search?.district_name || 'N/A'}`,
-                  badgeText: 'Live Data',
+                  subtitle: `Promoter: ${project.promoter_organization_name || project.promoter_name || 'Unknown'} | District: ${project.address_details?.District || project.district || project.search?.district_name || 'N/A'}`,
+                  badgeText: selectedState === 'TS' ? 'RERA project' : 'Live Data',
                   riskStatus: 'medium' as const,
                   score,
                   originalData: project
@@ -364,7 +474,7 @@ function App() {
             }
           }
         } else {
-          // Fallback to legacy APIs for TS, TN, KA
+          // Fallback to legacy listing API for TN, KA
           const params = new URLSearchParams({
             q: query,
             page: "1",
@@ -799,9 +909,9 @@ via the SignalX property verification API node.
             isCrawling ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh', width: '100%' }}>
                 <Loader2 size={64} className="map-spinner" style={{ color: 'var(--brand-blue)', marginBottom: '24px' }} />
-                <h2 style={{ color: '#0f172a', marginBottom: '12px', fontSize: '24px', fontWeight: 'bold' }}>Scraping Live Telangana RERA...</h2>
+                <h2 style={{ color: '#0f172a', marginBottom: '12px', fontSize: '24px', fontWeight: 'bold' }}>Loading Telangana RERA Details...</h2>
                 <p style={{ color: '#64748b', fontSize: '16px', maxWidth: '500px', textAlign: 'center', lineHeight: '1.5' }}>
-                  We are connecting to the live registry to extract real-time promoter history, structural data, and land parcels.
+                  Fetching promoter history, structural data, and land parcels from the Telangana RERA database.
                 </p>
               </div>
             ) : (
@@ -1161,29 +1271,37 @@ via the SignalX property verification API node.
                     setShowLeadModal(false);
                     setViewMode('details');
                     if (leadForm.reportType === 'none' && selectedState === 'TS' && selectedProperty) {
+                      if (hasTelanganaDetailedSections(selectedProperty.liveDetails)) {
+                        return;
+                      }
                       setIsCrawling(true);
-                      fetch(`${API_BASE_URL}/api/crawl/live`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ entity_name: selectedProperty.name })
-                      }).then(res => res.json()).then(result => {
-                        if (result.status === 'success' && result.data) {
-                          const liveData = result.data;
-                          setSelectedProperty(prev => prev ? {
-                            ...prev,
-                            reraId: liveData.rera_registration_id || prev.reraId,
-                            ownerName: liveData.result_promoter_name || prev.ownerName,
-                            name: liveData.result_project_name || prev.name,
-                            location: liveData.project_address || prev.location,
-                            financialStatus: liveData.bank_name ? `Financed by ${liveData.bank_name}` : prev.financialStatus,
-                            liveDetails: liveData,
-                          } : prev);
-                        }
-                      }).catch(err => {
-                        console.error('Live crawl error:', err);
-                      }).finally(() => {
-                        setIsCrawling(false);
+                      const detailParams = new URLSearchParams({
+                        project_name: selectedProperty.name,
+                        collection: 'Telangana_Detailed',
                       });
+                      if (selectedProperty.reraId && !selectedProperty.reraId.startsWith('RERA-')) {
+                        detailParams.set('rera_id', selectedProperty.reraId);
+                      }
+                      fetch(`${API_BASE_URL}/api/generic/details?${detailParams}`)
+                        .then(res => {
+                          if (!res.ok) {
+                            throw new Error(`Details API returned ${res.status}`);
+                          }
+                          return res.json();
+                        })
+                        .then(result => {
+                          if (result.status === 'success' && result.data) {
+                            setSelectedProperty(prev =>
+                              prev ? applyTelanganaDbRecord(prev, result.data) : prev
+                            );
+                          }
+                        })
+                        .catch(err => {
+                          console.error('Telangana DB details error:', err);
+                        })
+                        .finally(() => {
+                          setIsCrawling(false);
+                        });
                     }
                   } else {
                     alert('Please fill out your name, email, and mobile number.');
