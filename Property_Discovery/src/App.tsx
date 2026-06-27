@@ -2,22 +2,25 @@ import { useState, useEffect, useRef } from 'react';
 import { MOCK_PROPERTIES } from './mockData';
 import type { Property } from './mockData';
 import TelanganaMapModal from './TelanganaMapModal';
+import { API_BASE_URL } from './apiConfig';
 import {
   Search,
   Globe,
   MapPin,
   ShieldCheck,
   ArrowRight,
-  CheckCircle2,
   ChevronDown,
   Map,
   ArrowLeft,
   FileText,
   Building,
-  LayoutDashboard,
   X,
   Loader2,
-  Sparkles
+  Sparkles,
+  Users,
+  Monitor,
+  CheckCircle2,
+  Info
 } from 'lucide-react';
 
 interface UnifiedSuggestion {
@@ -89,6 +92,123 @@ const STATE_OPTIONS = [
   { code: 'KA', label: 'Karnataka (KA)' },
 ] as const;
 
+const PROJECT_REPORT_INCLUDES = [
+  {
+    title: 'Litigations related to the project',
+    description: 'Active and disposed litigation flags linked to this RERA registration.',
+  },
+  {
+    title: 'Promoters – other projects and their status',
+    description: 'Portfolio view of the promoter’s other registered projects and their completion status.',
+  },
+  {
+    title: 'Risk indicators – key risk factors',
+    description: 'Key risk takeaways from registry filings, financial disclosures, and compliance signals.',
+  },
+  {
+    title: 'A detailed report on the project',
+    description: 'Full project dossier covering land parcels, bank details, address, and registration data.',
+  },
+] as const;
+
+function ProjectReportIncludes({
+  variant = 'list',
+}: {
+  variant?: 'list' | 'tooltip' | 'points';
+}) {
+  if (variant === 'tooltip') {
+    return (
+      <div className="report-includes-tooltip">
+        <p className="report-includes-tooltip-heading">Project Report includes</p>
+        <ul className="report-includes-tooltip-list">
+          {PROJECT_REPORT_INCLUDES.map((item) => (
+            <li key={item.title}>{item.title}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  if (variant === 'points') {
+    return (
+      <ul className="report-includes-points">
+        {PROJECT_REPORT_INCLUDES.map((item) => (
+          <li key={item.title}>
+            <CheckCircle2 size={16} className="report-includes-point-icon" />
+            <div>
+              <span className="report-includes-point-title">{item.title}</span>
+              <span className="report-includes-point-desc">{item.description}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  return (
+    <ul className="report-includes-hover-list">
+      {PROJECT_REPORT_INCLUDES.map((item) => (
+        <li key={item.title} className="report-includes-hover-item">
+          <div className="report-includes-hover-row">
+            <CheckCircle2 size={15} className="report-includes-hover-icon" />
+            <span>{item.title}</span>
+            <Info size={14} className="report-includes-info-icon" />
+          </div>
+          <p className="report-includes-hover-desc">{item.description}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const REPORT_TYPE_LABELS: Record<string, string> = {
+  project: 'Project Report',
+  proprietor: 'Promoter Report',
+  none: 'Web Only',
+};
+
+interface LeadFormErrors {
+  name?: string;
+  email?: string;
+  mobile?: string;
+  submit?: string;
+}
+
+function validateLeadForm(form: {
+  name: string;
+  email: string;
+  mobile: string;
+}): LeadFormErrors {
+  const errors: LeadFormErrors = {};
+  const name = form.name.trim();
+
+  if (name.length < 2) {
+    errors.name = 'Name must be at least 2 characters';
+  } else if (!/^[A-Za-z][A-Za-z\s'.-]{1,99}$/.test(name)) {
+    errors.name = 'Name should contain only letters';
+  }
+
+  const email = form.email.trim();
+  if (!email) {
+    errors.email = 'Email is required';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errors.email = 'Enter a valid email address';
+  }
+
+  let mobile = form.mobile.replace(/[\s\-()]/g, '');
+  if (mobile.startsWith('+91')) mobile = mobile.slice(3);
+  else if (mobile.startsWith('91') && mobile.length === 12) mobile = mobile.slice(2);
+  else if (mobile.startsWith('0') && mobile.length === 11) mobile = mobile.slice(1);
+
+  if (!mobile) {
+    errors.mobile = 'Mobile number is required';
+  } else if (!/^[6-9]\d{9}$/.test(mobile)) {
+    errors.mobile = 'Enter a valid 10-digit Indian mobile number';
+  }
+
+  return errors;
+}
+
 const TELANGANA_CERTIFICATE_BASE =
   'https://rerait.telangana.gov.in/SearchList/GetShowCertificateFileContent';
 
@@ -103,6 +223,28 @@ function resolveTelanganaCertificate(project: any): { download_url?: string } | 
   }
   const downloadUrl = buildTelanganaCertificateUrl(project.certificate_qstr);
   return downloadUrl ? { download_url: downloadUrl } : undefined;
+}
+
+function getProjectTimelineDates(property: Property): {
+  approvedDate?: string;
+  proposedCompletion?: string;
+} {
+  const details = property.liveDetails;
+  const approvedDate =
+    details?.project_information?.['Approved Date'] ||
+    details?.['About the Project']?.['Project Start Date'] ||
+    property.reraFilingDate ||
+    undefined;
+  const proposedCompletion =
+    details?.project_information?.['Proposed Date of Completion'] ||
+    details?.['About the Project']?.['Proposed/ Expected Date of Project Completion as specified in Form B'] ||
+    undefined;
+
+  return {
+    approvedDate: approvedDate && approvedDate !== 'N/A' ? String(approvedDate) : undefined,
+    proposedCompletion:
+      proposedCompletion && proposedCompletion !== 'N/A' ? String(proposedCompletion) : undefined,
+  };
 }
 
 const TELANGANA_DETAIL_SECTIONS = [
@@ -321,7 +463,165 @@ function transformInfraToProperty(project: any): Property {
   };
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://property-duediligence.onrender.com';
+function getPromoterName(property: Property): string {
+  return (
+    property.ownerName ||
+    property.liveDetails?.promoter_organization_name ||
+    property.liveDetails?.promoter_information?.['Organization Name'] ||
+    property.liveDetails?.promoter_information?.Name ||
+    property.liveDetails?.promoter_name ||
+    property.originalData?.promoter_organization_name ||
+    property.originalData?.promoter_name ||
+    ''
+  ).trim();
+}
+
+function getPromoterGst(property: Property): string {
+  const info = property.liveDetails?.promoter_information || {};
+  return (
+    info['GST Number'] ||
+    info.CompanyGSTIN ||
+    property.originalData?.promoter_information?.['GST Number'] ||
+    ''
+  )
+    .trim()
+    .toUpperCase();
+}
+
+function getPromoterPan(property: Property): string {
+  const info = property.liveDetails?.promoter_information || {};
+  const pan = (
+    info.CompanyPanNo ||
+    info['Pan No.'] ||
+    info['PAN Number'] ||
+    property.originalData?.promoter_information?.CompanyPanNo ||
+    ''
+  )
+    .trim()
+    .toUpperCase();
+  if (pan) return pan;
+  const gst = getPromoterGst(property);
+  return gst.length >= 12 ? gst.substring(2, 12) : '';
+}
+
+async function submitDiscoveryReportRequest(payload: {
+  entity_name: string;
+  user: { name: string; email: string; mobile: string };
+  report_type: string;
+  state: string;
+  rera_id?: string;
+  promoter_name?: string;
+  promoter_gst?: string;
+  promoter_pan?: string;
+  report_includes: string[];
+}): Promise<{ report_id: string; message: string }> {
+  const res = await fetch(`${API_BASE_URL}/api/discovery/place-report`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const detail = data.detail;
+    const message =
+      typeof detail === 'string'
+        ? detail
+        : Array.isArray(detail)
+          ? detail.map((item: { msg?: string }) => item.msg).filter(Boolean).join(', ')
+          : 'Failed to place report';
+    throw new Error(message || 'Failed to place report');
+  }
+
+  return data;
+}
+
+interface NameSuggestion {
+  id: string;
+  name: string;
+  originalData: any;
+}
+
+function getCollectionForState(state: string): string | null {
+  if (state === 'DL') return 'Delhi_allprojects_detailed';
+  if (state === 'MP') return 'MP_detailed';
+  if (state === 'TS') return 'Telangana_Detailed';
+  return null;
+}
+
+async function fetchInfraSearchResults(query: string, state: string): Promise<any[]> {
+  const collection = getCollectionForState(state);
+  if (collection) {
+    const params = new URLSearchParams({
+      q: query,
+      collection,
+      page: '1',
+      page_size: '8',
+    });
+    const res = await fetch(`${API_BASE_URL}/api/generic/search?${params}`);
+    if (res.ok) {
+      const data = await res.json();
+      return data.results || [];
+    }
+    return [];
+  }
+
+  const params = new URLSearchParams({ q: query, page: '1', page_size: '8' });
+  const res = await fetch(`${API_BASE_URL}/api/infra/search?${params}`);
+  if (res.ok) {
+    const data = await res.json();
+    return data.results || [];
+  }
+  return [];
+}
+
+function projectNeedsDetailFetch(project: any, state: string, prop: Property): boolean {
+  if (state === 'TS') {
+    return !hasTelanganaDetailedSections(prop.liveDetails);
+  }
+  if (state === 'DL' || state === 'MP') {
+    return !prop.liveDetails || (!project.tabs && !project.project_information);
+  }
+  return !prop.liveDetails;
+}
+
+async function loadPropertyWithFullDetails(project: any, state: string): Promise<Property> {
+  let prop = transformInfraToProperty(project);
+
+  if (!projectNeedsDetailFetch(project, state, prop)) {
+    return prop;
+  }
+
+  const collection = getCollectionForState(state);
+  if (!collection) {
+    return prop;
+  }
+
+  const params = new URLSearchParams({
+    project_name: project.project_name || prop.name,
+    collection,
+  });
+  const reraId = project.rera_registration_id || prop.reraId;
+  if (reraId && !String(reraId).startsWith('RERA-')) {
+    params.set('rera_id', String(reraId));
+  }
+
+  const res = await fetch(`${API_BASE_URL}/api/generic/details?${params}`);
+  if (!res.ok) {
+    return prop;
+  }
+
+  const result = await res.json();
+  if (result.status === 'success' && result.data) {
+    if (state === 'TS') {
+      prop = applyTelanganaDbRecord(prop, result.data);
+    } else {
+      prop = transformInfraToProperty(result.data);
+    }
+  }
+
+  return prop;
+}
 
 function App() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
@@ -367,9 +667,25 @@ function App() {
   // New States for Lead Capture and Details View
   const [viewMode, setViewMode] = useState<'search' | 'details'>('search');
   const [showLeadModal, setShowLeadModal] = useState<boolean>(false);
+  const [showPlaceReportModal, setShowPlaceReportModal] = useState<boolean>(false);
+  const [projectReportPlaced, setProjectReportPlaced] = useState<boolean>(false);
+  const [isPlacingReport, setIsPlacingReport] = useState<boolean>(false);
+  const [placeReportError, setPlaceReportError] = useState<string | null>(null);
   const [leadForm, setLeadForm] = useState({ name: '', email: '', mobile: '', reportType: 'project' });
+  const [leadFormErrors, setLeadFormErrors] = useState<LeadFormErrors>({});
+  const [isSubmittingLead, setIsSubmittingLead] = useState<boolean>(false);
+  const [leadSubmitSuccess, setLeadSubmitSuccess] = useState<string | null>(null);
   const [isCrawling, setIsCrawling] = useState<boolean>(false);
   const [displayedSummary, setDisplayedSummary] = useState<string>('');
+
+  const [headerSearchActive, setHeaderSearchActive] = useState<boolean>(false);
+  const [headerSearchQuery, setHeaderSearchQuery] = useState<string>('');
+  const [headerSuggestions, setHeaderSuggestions] = useState<NameSuggestion[]>([]);
+  const [headerSearchLoading, setHeaderSearchLoading] = useState<boolean>(false);
+  const [showHeaderSuggestions, setShowHeaderSuggestions] = useState<boolean>(false);
+
+  const headerSearchRef = useRef<HTMLDivElement>(null);
+  const headerInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (viewMode === 'details' && selectedProperty?.liveDetails && !isCrawling) {
@@ -412,10 +728,6 @@ function App() {
     }
   }, [viewMode, selectedProperty, isCrawling]);
 
-  // PDF download progress states
-  const [isDownloading, setIsDownloading] = useState<boolean>(false);
-  const [downloadStep, setDownloadStep] = useState<number>(0);
-  const downloadTimerRef = useRef<number | null>(null);
   const searchBoxRef = useRef<HTMLDivElement>(null);
   const stateSelectorRef = useRef<HTMLDivElement>(null);
 
@@ -552,106 +864,6 @@ function App() {
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery, selectedState]);
 
-  // Mock download runner
-  const startDownloadReport = () => {
-    if (!selectedProperty) return;
-    setIsDownloading(true);
-    setDownloadStep(0);
-  };
-
-  useEffect(() => {
-    if (isDownloading) {
-      downloadTimerRef.current = window.setInterval(() => {
-        setDownloadStep((prev) => {
-          if (prev >= 5) {
-            if (downloadTimerRef.current) clearInterval(downloadTimerRef.current);
-            triggerReportDownload();
-            return 5;
-          }
-          return prev + 1;
-        });
-      }, 700);
-    }
-    return () => {
-      if (downloadTimerRef.current) clearInterval(downloadTimerRef.current);
-    };
-  }, [isDownloading]);
-
-  const triggerReportDownload = () => {
-    if (!selectedProperty) return;
-    const property = selectedProperty;
-    const element = document.createElement("a");
-    const reportText = `========================================================================
-                 SIGNALX LEGAL & LAND DUE DILIGENCE REPORT
-========================================================================
-Report Generated : ${new Date().toLocaleString()}
-Compliance Score : ${property.riskScore}/100
-Risk Verdict     : ${property.status.toUpperCase()} RISK STATUS
-Reference ID     : SIGX-DD-${property.id.toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}
-
-------------------------------------------------------------------------
-1. PROPERTY IDENTIFICATION
-------------------------------------------------------------------------
-Property Name    : ${property.name}
-Zoning Category  : ${property.zone}
-Survey Numbers   : ${property.surveyNo}
-PIN Code         : ${property.pinCode}
-Global Location  : ${property.location}
-GIS Coordinates  : ${property.latLong}
-Elevation Profile: ${property.elevation}
-Total Plot Area  : ${property.areaAcres} Acres
-Hydrology Buffer : ${property.nearbyWaterbody}
-
-------------------------------------------------------------------------
-2. CURRENT RECOGNIZED OWNERSHIP
-------------------------------------------------------------------------
-Registered Owner : ${property.ownerName}
-Title Status     : ${property.titleStatus}
-Financial State  : ${property.financialStatus}
-
-------------------------------------------------------------------------
-3. TITLE HISTORICAL AUDIT (30-YEAR CHAIN)
-------------------------------------------------------------------------
-${property.titleChain.map((n, i) => `[Deed Node #${i + 1}]
-Year             : ${n.year}
-Transaction Type : ${n.type}
-Transferor (A)   : ${n.partyA}
-Transferee (B)   : ${n.partyB}
-Consideration    : ${n.value}
-Document Number  : ${n.docNo}
-Registration SRO : ${n.registrar}
-------------------------------------------------------------------------`).join('\n')}
-
-------------------------------------------------------------------------
-4. LITIGATION DISCLOSURE & SCREENING
-------------------------------------------------------------------------
-Litigation Index : ${property.litigations.length} Cases Screened
-Active Disputes  : ${property.litigations.filter(c => c.status === 'Active').length} Cases
-Disposed Cases   : ${property.litigations.filter(c => c.status === 'Disposed').length} Cases
-
-${property.litigations.map((c, i) => `[Case Dossier #${i + 1}]
-Case Number      : ${c.caseNo}
-Adjudicating Body: ${c.court}
-Current Status   : ${c.status.toUpperCase()}
-Action Type      : ${c.type}
-Petitioner (A)   : ${c.partyA}
-Respondent (B)   : ${c.partyB}
-Case Abstract    : ${c.description}
-------------------------------------------------------------------------`).join('\n')}
-
-========================================================================
-Disclaimer: This is a simulated Due Diligence Intelligence report pulled 
-via the SignalX property verification API node.
-========================================================================`;
-
-    const file = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
-    element.href = URL.createObjectURL(file);
-    element.download = `SignalX_DueDiligence_${property.name.replace(/[^a-zA-Z0-9]/g, "_")}.txt`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
-
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (searchBoxRef.current && !searchBoxRef.current.contains(e.target as Node)) {
@@ -660,10 +872,196 @@ via the SignalX property verification API node.
       if (stateSelectorRef.current && !stateSelectorRef.current.contains(e.target as Node)) {
         setShowStateDropdown(false);
       }
+      if (headerSearchRef.current && !headerSearchRef.current.contains(e.target as Node)) {
+        setShowHeaderSuggestions(false);
+        setHeaderSearchActive(false);
+        setHeaderSearchQuery('');
+        setHeaderSuggestions([]);
+      }
     };
     document.addEventListener('click', handleOutsideClick);
     return () => document.removeEventListener('click', handleOutsideClick);
   }, []);
+
+  useEffect(() => {
+    if (headerSearchActive) {
+      headerInputRef.current?.focus();
+    }
+  }, [headerSearchActive]);
+
+  useEffect(() => {
+    if (!headerSearchActive || !headerSearchQuery.trim()) {
+      setHeaderSuggestions([]);
+      setHeaderSearchLoading(false);
+      return;
+    }
+
+    setHeaderSearchLoading(true);
+    const delayDebounceFn = setTimeout(async () => {
+      const query = headerSearchQuery.trim();
+      try {
+        const results = await fetchInfraSearchResults(query, selectedState);
+        const names: NameSuggestion[] = results.map((project: any) => ({
+          id: `header-${(project.project_name || 'unknown').replace(/\s+/g, '_')}`,
+          name: project.project_name || 'Unknown Project',
+          originalData: project,
+        }));
+
+        const unique: NameSuggestion[] = [];
+        const seen = new Set<string>();
+        for (const item of names) {
+          const key = item.name.toLowerCase();
+          if (!seen.has(key)) {
+            seen.add(key);
+            unique.push(item);
+          }
+        }
+
+        setHeaderSuggestions(unique);
+      } catch (err) {
+        console.warn('Header search failed', err);
+        setHeaderSuggestions([]);
+      } finally {
+        setHeaderSearchLoading(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [headerSearchQuery, headerSearchActive, selectedState]);
+
+  const handleHeaderSuggestionSelect = async (item: NameSuggestion) => {
+    setShowHeaderSuggestions(false);
+    setHeaderSearchActive(false);
+    setHeaderSearchQuery('');
+    setHeaderSuggestions([]);
+    setIsCrawling(true);
+
+    try {
+      const fullProp = await loadPropertyWithFullDetails(item.originalData, selectedState);
+      setSelectedProperty(fullProp);
+      setViewMode('details');
+      saveRecentSearch(item.name, fullProp.name, fullProp.reraId);
+    } catch (err) {
+      console.error('Failed to load property details', err);
+    } finally {
+      setIsCrawling(false);
+    }
+  };
+
+  const handlePlaceReportConfirm = async () => {
+    if (!selectedProperty || isPlacingReport) return;
+
+    setIsPlacingReport(true);
+    setPlaceReportError(null);
+    try {
+      const reportIncludes = PROJECT_REPORT_INCLUDES.map((item) => item.title);
+      const localId = selectedProperty.id.replace(/[^a-zA-Z0-9-]/g, '') || 'project';
+
+      await submitDiscoveryReportRequest({
+        entity_name: selectedProperty.name,
+        promoter_name: getPromoterName(selectedProperty) || undefined,
+        user: {
+          name: 'Property Discovery',
+          email: `place-report+${localId}@local.dev`,
+          mobile: '9000000000',
+        },
+        report_type: 'project',
+        state: selectedState,
+        rera_id:
+          selectedProperty.reraId && !selectedProperty.reraId.startsWith('RERA-')
+            ? selectedProperty.reraId
+            : undefined,
+        report_includes: reportIncludes,
+      });
+
+      setProjectReportPlaced(true);
+      setShowPlaceReportModal(false);
+    } catch (err) {
+      setPlaceReportError(err instanceof Error ? err.message : 'Failed to place report');
+    } finally {
+      setIsPlacingReport(false);
+    }
+  };
+
+  const activateHeaderSearch = () => {
+    setHeaderSearchActive(true);
+    setHeaderSearchQuery('');
+    setShowHeaderSuggestions(false);
+    setHeaderSuggestions([]);
+  };
+
+  const handleLeadFormSubmit = async () => {
+    const errors = validateLeadForm(leadForm);
+    setLeadFormErrors(errors);
+    setLeadSubmitSuccess(null);
+    if (Object.keys(errors).length > 0 || !selectedProperty) {
+      return;
+    }
+
+    setIsSubmittingLead(true);
+    try {
+      let mobile = leadForm.mobile.replace(/[\s\-()]/g, '');
+      if (mobile.startsWith('+91')) mobile = mobile.slice(3);
+      else if (mobile.startsWith('91') && mobile.length === 12) mobile = mobile.slice(2);
+      else if (mobile.startsWith('0') && mobile.length === 11) mobile = mobile.slice(1);
+
+      const reportIncludes =
+        leadForm.reportType === 'project'
+          ? PROJECT_REPORT_INCLUDES.map((item) => item.title)
+          : [];
+
+      await submitDiscoveryReportRequest({
+        entity_name: selectedProperty.name,
+        promoter_name: getPromoterName(selectedProperty) || undefined,
+        promoter_gst: getPromoterGst(selectedProperty) || undefined,
+        promoter_pan: getPromoterPan(selectedProperty) || undefined,
+        user: {
+          name: leadForm.name.trim(),
+          email: leadForm.email.trim(),
+          mobile,
+        },
+        report_type: leadForm.reportType,
+        state: selectedState,
+        rera_id:
+          selectedProperty.reraId && !selectedProperty.reraId.startsWith('RERA-')
+            ? selectedProperty.reraId
+            : undefined,
+        report_includes: reportIncludes,
+      });
+
+      setLeadSubmitSuccess(
+        leadForm.reportType === 'proprietor'
+          ? 'Promoter report saved. Portfolio and RiskMaster wishlist are being created.'
+          : 'Report request saved. Promoter portfolio is being loaded.',
+      );
+      setShowLeadModal(false);
+      setViewMode('details');
+
+      if (leadForm.reportType === 'project') {
+        setProjectReportPlaced(true);
+      }
+
+      if (leadForm.reportType === 'none' && selectedProperty) {
+        const collection = getCollectionForState(selectedState);
+        if (collection && projectNeedsDetailFetch(selectedProperty.originalData || {}, selectedState, selectedProperty)) {
+          setIsCrawling(true);
+          loadPropertyWithFullDetails(
+            selectedProperty.originalData || { project_name: selectedProperty.name },
+            selectedState,
+          )
+            .then((fullProp) => setSelectedProperty(fullProp))
+            .catch((err) => console.error('Details load error:', err))
+            .finally(() => setIsCrawling(false));
+        }
+      }
+    } catch (err) {
+      setLeadFormErrors({
+        submit: err instanceof Error ? err.message : 'Failed to place report. Please try again.',
+      });
+    } finally {
+      setIsSubmittingLead(false);
+    }
+  };
 
   // const getStatusColorClass = (status: 'low' | 'medium' | 'high') => {
   //   return `badge-${status}`;
@@ -919,7 +1317,11 @@ via the SignalX property verification API node.
                   <ShieldCheck size={14} style={{ color: getRiskColor(selectedProperty.status) }} />
                   Registry match verified via  node.
                 </span>
-                <button className="button-link" onClick={() => setShowLeadModal(true)}>
+                <button className="button-link" onClick={() => {
+                  setLeadFormErrors({});
+                  setLeadSubmitSuccess(null);
+                  setShowLeadModal(true);
+                }}>
                   <ArrowRight size={14} />
                   <span>View Full Details</span>
                 </button>
@@ -933,9 +1335,9 @@ via the SignalX property verification API node.
             isCrawling ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh', width: '100%' }}>
                 <Loader2 size={64} className="map-spinner" style={{ color: 'var(--brand-blue)', marginBottom: '24px' }} />
-                <h2 style={{ color: '#0f172a', marginBottom: '12px', fontSize: '24px', fontWeight: 'bold' }}>Loading Telangana RERA Details...</h2>
+                <h2 style={{ color: '#0f172a', marginBottom: '12px', fontSize: '24px', fontWeight: 'bold' }}>Loading RERA Details...</h2>
                 <p style={{ color: '#64748b', fontSize: '16px', maxWidth: '500px', textAlign: 'center', lineHeight: '1.5' }}>
-                  Fetching promoter history, structural data, and land parcels from the Telangana RERA database.
+                  Fetching promoter history, structural data, and land parcels from the registry database.
                 </p>
               </div>
             ) : (
@@ -945,11 +1347,99 @@ via the SignalX property verification API node.
                     <button className="back-btn-simple" onClick={() => setViewMode('search')}>
                       <ArrowLeft size={20} />
                     </button>
-                    <h1 className="details-main-title">{selectedProperty.name.toUpperCase()}</h1>
+
+                    <div className="details-title-search" ref={headerSearchRef}>
+                      {headerSearchActive ? (
+                        <input
+                          ref={headerInputRef}
+                          type="text"
+                          className="details-title-input"
+                          value={headerSearchQuery}
+                          onChange={(e) => {
+                            setHeaderSearchQuery(e.target.value);
+                            setShowHeaderSuggestions(true);
+                          }}
+                          onFocus={() => setShowHeaderSuggestions(true)}
+                          placeholder="Search by project name..."
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') {
+                              setHeaderSearchActive(false);
+                              setHeaderSearchQuery('');
+                              setShowHeaderSuggestions(false);
+                              setHeaderSuggestions([]);
+                            }
+                          }}
+                        />
+                      ) : (
+                        <h1 className="details-main-title">{selectedProperty.name.toUpperCase()}</h1>
+                      )}
+                      <button
+                        type="button"
+                        className="details-title-search-btn"
+                        title="Search another project"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (headerSearchActive) {
+                            setHeaderSearchActive(false);
+                            setHeaderSearchQuery('');
+                            setShowHeaderSuggestions(false);
+                            setHeaderSuggestions([]);
+                          } else {
+                            activateHeaderSearch();
+                          }
+                        }}
+                      >
+                        <Search size={18} />
+                      </button>
+
+                      {headerSearchActive && showHeaderSuggestions && headerSearchQuery.trim() !== '' && (
+                        <div className="details-header-suggestions">
+                          {headerSearchLoading ? (
+                            <div className="details-header-suggestion-loading">
+                              <Loader2 size={14} className="map-spinner" />
+                              <span>Searching projects...</span>
+                            </div>
+                          ) : headerSuggestions.length > 0 ? (
+                            headerSuggestions.map((item) => (
+                              <button
+                                key={item.id}
+                                type="button"
+                                className="details-header-suggestion-item"
+                                onClick={() => handleHeaderSuggestionSelect(item)}
+                              >
+                                {item.name}
+                              </button>
+                            ))
+                          ) : (
+                            <div className="details-header-suggestion-empty">No projects match your query.</div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
                     <div className="details-actions">
-                      {(selectedProperty.liveDetails?.certificate?.download_url || selectedProperty.originalData?.certificate_url) && (
+                      {(() => {
+                        const { approvedDate, proposedCompletion } = getProjectTimelineDates(selectedProperty);
+                        return (
+                          <>
+                            {approvedDate && (
+                              <div className="details-date-chip">
+                                <span className="details-date-label">Approved Date</span>
+                                <span className="details-date-value">{approvedDate}</span>
+                              </div>
+                            )}
+                            {proposedCompletion && (
+                              <div className="details-date-chip">
+                                <span className="details-date-label">Proposed Date of Completion</span>
+                                <span className="details-date-value">{proposedCompletion}</span>
+                              </div>
+                            )}
+                          </>
+                        );
+                      })()}
+                      {(selectedProperty.liveDetails?.certificate?.download_url || selectedProperty.originalData?.certificate?.download_url || selectedProperty.originalData?.certificate_url) && (
                         <a 
-                          href={selectedProperty.liveDetails?.certificate?.download_url || selectedProperty.originalData?.certificate_url} 
+                          href={selectedProperty.liveDetails?.certificate?.download_url || selectedProperty.originalData?.certificate?.download_url || selectedProperty.originalData?.certificate_url} 
                           target="_blank" 
                           rel="noreferrer"
                           style={{
@@ -962,9 +1452,12 @@ via the SignalX property verification API node.
                           <FileText size={16} /> RERA Certificate
                         </a>
                       )}
-                      <button className="icon-btn-outline"><Search size={16} /></button>
-                      <button className="primary-dropdown-btn" onClick={startDownloadReport}>
-                        Place Report <ChevronDown size={14} />
+                      <button
+                        type="button"
+                        className="primary-dropdown-btn"
+                        onClick={() => setShowPlaceReportModal(true)}
+                      >
+                        Place Report
                       </button>
                     </div>
                   </div>
@@ -978,6 +1471,24 @@ via the SignalX property verification API node.
                 </div>
 
                 <div className="details-white-card">
+                  {leadSubmitSuccess && (
+                    <div className="lead-success-banner">
+                      <CheckCircle2 size={16} />
+                      <span>{leadSubmitSuccess}</span>
+                    </div>
+                  )}
+                  {projectReportPlaced && (
+                    <div className="details-table-card report-includes-card">
+                      <div className="table-card-header report-includes-card-header">
+                        <FileText size={16} />
+                        <span>Your Project Report Includes</span>
+                      </div>
+                      <div className="report-includes-card-body">
+                        <ProjectReportIncludes variant="points" />
+                      </div>
+                    </div>
+                  )}
+
                   {!selectedProperty.liveDetails && (
                     <>
                       <div className="details-table-card">
@@ -1108,58 +1619,63 @@ via the SignalX property verification API node.
         </main>
       )}
 
-      {/* Progress Compilation Modal */}
-      {isDownloading && selectedProperty && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3 className="modal-title">Generating Audited Dossier</h3>
+      {/* Place Report Confirmation Modal */}
+      {showPlaceReportModal && selectedProperty && (
+        <div className="modal-overlay" onClick={() => setShowPlaceReportModal(false)}>
+          <div className="modal-content place-report-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="place-report-modal-header">
+              <div className="place-report-modal-icon">
+                <FileText size={22} />
+              </div>
+              <div>
+                <h3 className="modal-title">Place Report</h3>
+                <p className="place-report-modal-subtitle">Confirm report request for this project</p>
+              </div>
+              <button
+                type="button"
+                className="place-report-close-btn"
+                onClick={() => setShowPlaceReportModal(false)}
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
             </div>
 
-            <div className="modal-body">
-              <p style={{ fontSize: '13.5px', color: 'var(--slate-500)', marginBottom: '20px' }}>
-                Please wait while we audit all state records, court registries, and spatial zoning files for <strong>{selectedProperty.name}</strong>.
+            <div className="modal-body place-report-modal-body">
+              <p>
+                Do you want to place a due diligence report on{' '}
+                <strong>{selectedProperty.name}</strong>?
               </p>
 
-              <div className="progress-list">
-                <div className={`progress-step ${downloadStep >= 1 ? 'completed' : downloadStep === 0 ? 'active' : ''}`}>
-                  {downloadStep >= 1 ? <CheckCircle2 size={16} /> : <div className="loader-ring" />}
-                  <span>1. Fetching Registry Deed Logs from SRO...</span>
-                </div>
-
-                <div className={`progress-step ${downloadStep >= 2 ? 'completed' : downloadStep === 1 ? 'active' : ''}`}>
-                  {downloadStep >= 2 ? <CheckCircle2 size={16} /> : downloadStep === 1 ? <div className="loader-ring" /> : <div style={{ width: 16 }} />}
-                  <span>2. Scanning Litigation & Judicial Databases...</span>
-                </div>
-
-                <div className={`progress-step ${downloadStep >= 3 ? 'completed' : downloadStep === 2 ? 'active' : ''}`}>
-                  {downloadStep >= 3 ? <CheckCircle2 size={16} /> : downloadStep === 2 ? <div className="loader-ring" /> : <div style={{ width: 16 }} />}
-                  <span>3. Verifying RERA Promoter filings...</span>
-                </div>
-
-                <div className={`progress-step ${downloadStep >= 4 ? 'completed' : downloadStep === 3 ? 'active' : ''}`}>
-                  {downloadStep >= 4 ? <CheckCircle2 size={16} /> : downloadStep === 3 ? <div className="loader-ring" /> : <div style={{ width: 16 }} />}
-                  <span>4. Performing GIS zoning offset calculations...</span>
-                </div>
-
-                <div className={`progress-step ${downloadStep >= 5 ? 'completed' : downloadStep === 4 ? 'active' : ''}`}>
-                  {downloadStep >= 5 ? <CheckCircle2 size={16} /> : downloadStep === 4 ? <div className="loader-ring" /> : <div style={{ width: 16 }} />}
-                  <span>5. Compiling PDF report and checksum...</span>
-                </div>
+              <div className="place-report-includes-block">
+                <p className="place-report-includes-label">Your Project Report will include:</p>
+                <ProjectReportIncludes variant="list" />
               </div>
+
+              <p className="place-report-modal-note">
+                Hover each item for more detail. All projects by this promoter will be loaded from the RERA database.
+              </p>
+              {placeReportError && (
+                <p className="field-error-text" style={{ marginTop: '12px' }}>{placeReportError}</p>
+              )}
             </div>
 
-            <div className="modal-footer">
+            <div className="modal-footer place-report-modal-footer">
               <button
-                className="search-button"
-                disabled={downloadStep < 5}
-                onClick={() => setIsDownloading(false)}
-                style={{
-                  cursor: downloadStep < 5 ? 'not-allowed' : 'pointer',
-                  opacity: downloadStep < 5 ? 0.6 : 1
-                }}
+                type="button"
+                className="place-report-cancel-btn"
+                onClick={() => setShowPlaceReportModal(false)}
+                disabled={isPlacingReport}
               >
-                <span>Complete</span>
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="place-report-confirm-btn"
+                onClick={handlePlaceReportConfirm}
+                disabled={isPlacingReport}
+              >
+                {isPlacingReport ? 'Placing Report...' : 'Confirm'}
               </button>
             </div>
           </div>
@@ -1194,91 +1710,104 @@ via the SignalX property verification API node.
             </div>
             
             <div className="modal-body" style={{ padding: '32px 24px', backgroundColor: '#ffffff' }}>
+              {leadFormErrors.submit && (
+                <div className="lead-form-error-banner">{leadFormErrors.submit}</div>
+              )}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label className="form-label" style={{ fontWeight: 600, color: '#334155', fontSize: '13px' }}>Full Name</label>
                   <input
                     type="text"
                     value={leadForm.name}
-                    onChange={e => setLeadForm({ ...leadForm, name: e.target.value })}
-                    className="form-input"
+                    onChange={e => {
+                      setLeadForm({ ...leadForm, name: e.target.value });
+                      if (leadFormErrors.name) setLeadFormErrors({ ...leadFormErrors, name: undefined });
+                    }}
+                    className={`form-input ${leadFormErrors.name ? 'form-input-error' : ''}`}
                     style={{ padding: '12px 16px', borderRadius: '10px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', fontSize: '14px', width: '100%', boxSizing: 'border-box' }}
                     placeholder="e.g. John Doe"
                   />
+                  {leadFormErrors.name && <span className="field-error-text">{leadFormErrors.name}</span>}
                 </div>
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label className="form-label" style={{ fontWeight: 600, color: '#334155', fontSize: '13px' }}>Work Email</label>
                   <input
                     type="email"
                     value={leadForm.email}
-                    onChange={e => setLeadForm({ ...leadForm, email: e.target.value })}
-                    className="form-input"
+                    onChange={e => {
+                      setLeadForm({ ...leadForm, email: e.target.value });
+                      if (leadFormErrors.email) setLeadFormErrors({ ...leadFormErrors, email: undefined });
+                    }}
+                    className={`form-input ${leadFormErrors.email ? 'form-input-error' : ''}`}
                     style={{ padding: '12px 16px', borderRadius: '10px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', fontSize: '14px', width: '100%', boxSizing: 'border-box' }}
                     placeholder="john@company.com"
                   />
+                  {leadFormErrors.email && <span className="field-error-text">{leadFormErrors.email}</span>}
                 </div>
                 <div className="form-group" style={{ marginBottom: 0, gridColumn: '1 / -1' }}>
                   <label className="form-label" style={{ fontWeight: 600, color: '#334155', fontSize: '13px' }}>Mobile Number</label>
                   <input
                     type="tel"
                     value={leadForm.mobile}
-                    onChange={e => setLeadForm({ ...leadForm, mobile: e.target.value })}
-                    className="form-input"
+                    onChange={e => {
+                      setLeadForm({ ...leadForm, mobile: e.target.value });
+                      if (leadFormErrors.mobile) setLeadFormErrors({ ...leadFormErrors, mobile: undefined });
+                    }}
+                    className={`form-input ${leadFormErrors.mobile ? 'form-input-error' : ''}`}
                     style={{ padding: '12px 16px', borderRadius: '10px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', fontSize: '14px', width: '100%', boxSizing: 'border-box' }}
                     placeholder="+91 98765 43210"
                   />
+                  {leadFormErrors.mobile && <span className="field-error-text">{leadFormErrors.mobile}</span>}
                 </div>
               </div>
 
               <div style={{ marginTop: '28px' }}>
                 <label className="form-label" style={{ fontWeight: 600, color: '#334155', marginBottom: '12px', display: 'block', fontSize: '13px' }}>Select Report Scope</label>
-                <div className="report-options-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                  <label className={`report-option-card ${leadForm.reportType === 'project' ? 'selected' : ''}`} style={{ margin: 0, padding: '16px 12px', borderRadius: '12px', border: leadForm.reportType === 'project' ? '2px solid #3b82f6' : '1px solid #e2e8f0', background: leadForm.reportType === 'project' ? '#eff6ff' : '#ffffff', transition: 'all 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div className="report-options-grid">
+                  <label className={`report-option-card report-option-project ${leadForm.reportType === 'project' ? 'selected' : ''}`}>
                     <input
                       type="radio"
                       name="reportType"
                       className="hidden-radio"
-                      style={{ display: 'none' }}
                       checked={leadForm.reportType === 'project'}
                       onChange={() => setLeadForm({ ...leadForm, reportType: 'project' })}
                     />
-                    <div className="option-icon-wrapper" style={{ backgroundColor: '#dbeafe', color: '#2563eb', padding: '8px', borderRadius: '8px', marginBottom: '12px', display: 'inline-flex' }}>
-                      <Building size={20} />
+                    <ProjectReportIncludes variant="tooltip" />
+                    <div className="option-icon-wrapper blue-icon">
+                      <Building size={28} strokeWidth={1.75} />
                     </div>
-                    <span style={{ display: 'block', fontWeight: 600, fontSize: '13px', color: '#1e293b', marginBottom: '4px' }}>Project</span>
-                    <span style={{ display: 'block', fontSize: '11px', color: '#64748b', lineHeight: 1.4 }}>Specific RERA history</span>
+                    <span className="option-title">Project Report</span>
+                    <span className="option-desc">Hover to see what’s included</span>
                   </label>
 
-                  <label className={`report-option-card ${leadForm.reportType === 'proprietor' ? 'selected' : ''}`} style={{ margin: 0, padding: '16px 12px', borderRadius: '12px', border: leadForm.reportType === 'proprietor' ? '2px solid #8b5cf6' : '1px solid #e2e8f0', background: leadForm.reportType === 'proprietor' ? '#f5f3ff' : '#ffffff', transition: 'all 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                  <label className={`report-option-card ${leadForm.reportType === 'proprietor' ? 'selected' : ''}`}>
                     <input
                       type="radio"
                       name="reportType"
                       className="hidden-radio"
-                      style={{ display: 'none' }}
                       checked={leadForm.reportType === 'proprietor'}
                       onChange={() => setLeadForm({ ...leadForm, reportType: 'proprietor' })}
                     />
-                    <div className="option-icon-wrapper" style={{ backgroundColor: '#ede9fe', color: '#7c3aed', padding: '8px', borderRadius: '8px', marginBottom: '12px', display: 'inline-flex' }}>
-                      <FileText size={20} />
+                    <div className="option-icon-wrapper purple-icon">
+                      <Users size={28} strokeWidth={1.75} />
                     </div>
-                    <span style={{ display: 'block', fontWeight: 600, fontSize: '13px', color: '#1e293b', marginBottom: '4px' }}>Promoter</span>
-                    <span style={{ display: 'block', fontSize: '11px', color: '#64748b', lineHeight: 1.4 }}>Historical track record</span>
+                    <span className="option-title">Promoter Report</span>
+                    <span className="option-desc">Historical track record</span>
                   </label>
 
-                  <label className={`report-option-card ${leadForm.reportType === 'none' ? 'selected' : ''}`} style={{ margin: 0, padding: '16px 12px', borderRadius: '12px', border: leadForm.reportType === 'none' ? '2px solid #64748b' : '1px solid #e2e8f0', background: leadForm.reportType === 'none' ? '#f8fafc' : '#ffffff', transition: 'all 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                  <label className={`report-option-card ${leadForm.reportType === 'none' ? 'selected' : ''}`}>
                     <input
                       type="radio"
                       name="reportType"
                       className="hidden-radio"
-                      style={{ display: 'none' }}
                       checked={leadForm.reportType === 'none'}
                       onChange={() => setLeadForm({ ...leadForm, reportType: 'none' })}
                     />
-                    <div className="option-icon-wrapper" style={{ backgroundColor: '#e2e8f0', color: '#475569', padding: '8px', borderRadius: '8px', marginBottom: '12px', display: 'inline-flex' }}>
-                      <LayoutDashboard size={20} />
+                    <div className="option-icon-wrapper slate-icon">
+                      <Monitor size={28} strokeWidth={1.75} />
                     </div>
-                    <span style={{ display: 'block', fontWeight: 600, fontSize: '13px', color: '#1e293b', marginBottom: '4px' }}>Web Only</span>
-                    <span style={{ display: 'block', fontSize: '11px', color: '#64748b', lineHeight: 1.4 }}>Just view details here</span>
+                    <span className="option-title">Web Only</span>
+                    <span className="option-desc">Just view details here</span>
                   </label>
                 </div>
               </div>
@@ -1289,51 +1818,21 @@ via the SignalX property verification API node.
               </span>
               <button
                 className="search-button"
-                style={{ borderRadius: '8px', padding: '10px 20px', fontSize: '14px', fontWeight: 600, background: 'linear-gradient(to right, #2563eb, #3b82f6)', boxShadow: '0 4px 14px 0 rgba(59, 130, 246, 0.39)', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                onClick={() => {
-                  if (leadForm.name && leadForm.email && leadForm.mobile) {
-                    setShowLeadModal(false);
-                    setViewMode('details');
-                    if (leadForm.reportType === 'none' && selectedState === 'TS' && selectedProperty) {
-                      if (hasTelanganaDetailedSections(selectedProperty.liveDetails)) {
-                        return;
-                      }
-                      setIsCrawling(true);
-                      const detailParams = new URLSearchParams({
-                        project_name: selectedProperty.name,
-                        collection: 'Telangana_Detailed',
-                      });
-                      if (selectedProperty.reraId && !selectedProperty.reraId.startsWith('RERA-')) {
-                        detailParams.set('rera_id', selectedProperty.reraId);
-                      }
-                      fetch(`${API_BASE_URL}/api/generic/details?${detailParams}`)
-                        .then(res => {
-                          if (!res.ok) {
-                            throw new Error(`Details API returned ${res.status}`);
-                          }
-                          return res.json();
-                        })
-                        .then(result => {
-                          if (result.status === 'success' && result.data) {
-                            setSelectedProperty(prev =>
-                              prev ? applyTelanganaDbRecord(prev, result.data) : prev
-                            );
-                          }
-                        })
-                        .catch(err => {
-                          console.error('Telangana DB details error:', err);
-                        })
-                        .finally(() => {
-                          setIsCrawling(false);
-                        });
-                    }
-                  } else {
-                    alert('Please fill out your name, email, and mobile number.');
-                  }
-                }}
+                style={{ borderRadius: '8px', padding: '10px 20px', fontSize: '14px', fontWeight: 600, background: 'linear-gradient(to right, #2563eb, #3b82f6)', boxShadow: '0 4px 14px 0 rgba(59, 130, 246, 0.39)', border: 'none', color: '#fff', cursor: isSubmittingLead ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px', opacity: isSubmittingLead ? 0.7 : 1 }}
+                disabled={isSubmittingLead}
+                onClick={() => void handleLeadFormSubmit()}
               >
-                <span>{leadForm.reportType === 'none' ? 'View Details' : 'Access Dashboard'}</span>
-                <ArrowRight size={16} />
+                {isSubmittingLead ? (
+                  <>
+                    <Loader2 size={16} className="map-spinner" />
+                    <span>Submitting...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{leadForm.reportType === 'none' ? 'View Details' : `Place ${REPORT_TYPE_LABELS[leadForm.reportType] || 'Report'}`}</span>
+                    <ArrowRight size={16} />
+                  </>
+                )}
               </button>
             </div>
           </div>

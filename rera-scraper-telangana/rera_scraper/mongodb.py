@@ -70,6 +70,42 @@ class ReraMongoStore:
             update["error"] = error
         self.collection.update_one({"report_id": report_id}, {"$set": update})
 
+    def update_discovery_scrape_result(
+        self,
+        report_id: str,
+        *,
+        status: str,
+        entity_name: str,
+        promoter_name: str | None = None,
+        live_details: dict[str, Any] | None = None,
+        listing: dict[str, Any] | None = None,
+        projects: list[dict[str, Any]] | None = None,
+        riskmaster: dict[str, Any] | None = None,
+        error: str | None = None,
+    ) -> None:
+        update: dict[str, Any] = {
+            "status": status,
+            "updated_at": datetime.now(UTC),
+        }
+        if live_details is not None:
+            update["live_details"] = live_details
+        if listing is not None:
+            update["listing"] = listing
+        if projects is not None:
+            rera_block: dict[str, Any] = {
+                "entity_searched": entity_name,
+                "total_projects": len(projects),
+                "projects": projects,
+            }
+            if promoter_name:
+                rera_block["promoter_name"] = promoter_name
+            update["rera"] = rera_block
+        if riskmaster is not None:
+            update["riskmaster"] = riskmaster
+        if error is not None:
+            update["scrape_error"] = error
+        self.collection.update_one({"report_id": report_id}, {"$set": update})
+
     def upsert_record(self, record: dict[str, Any]) -> str:
         """Legacy per-project save (CLI). Prefer save_unified_report for reports."""
         doc = {**record, "updated_at": datetime.now(UTC)}

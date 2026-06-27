@@ -9,11 +9,17 @@ from fastapi import BackgroundTasks, FastAPI, HTTPException
 # pyrefly: ignore [missing-import]
 from fastapi.middleware.cors import CORSMiddleware
 # pyrefly: ignore [missing-import]
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from rera_scraper.mongodb import ReraMongoStore
-from rera_scraper.report_service import create_pending_report, run_background_scrape
+from rera_scraper.report_service import (
+    create_discovery_report,
+    create_pending_report,
+    run_background_scrape,
+    run_discovery_background_scrape,
+)
 
 import os
+import re
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -51,9 +57,43 @@ app.add_middleware(
 
 
 class UserDetails(BaseModel):
-    name: str = Field(min_length=2)
+    name: str = Field(min_length=2, max_length=100)
     email: EmailStr
-    mobile: str = Field(min_length=8, max_length=15)
+    mobile: str = Field(min_length=10, max_length=15)
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        cleaned = " ".join(value.strip().split())
+        if not re.fullmatch(r"[A-Za-z][A-Za-z\s'.-]{1,99}", cleaned):
+            raise ValueError("Name must be at least 2 characters and contain only letters")
+        return cleaned
+
+    @field_validator("mobile")
+    @classmethod
+    def validate_mobile(cls, value: str) -> str:
+        cleaned = re.sub(r"[\s\-()]", "", value.strip())
+        if cleaned.startswith("+91"):
+            cleaned = cleaned[3:]
+        elif cleaned.startswith("91") and len(cleaned) == 12:
+            cleaned = cleaned[2:]
+        elif cleaned.startswith("0") and len(cleaned) == 11:
+            cleaned = cleaned[1:]
+        if not re.fullmatch(r"[6-9]\d{9}", cleaned):
+            raise ValueError("Mobile must be a valid 10-digit Indian number")
+        return cleaned
+
+
+class DiscoveryPlaceReportRequest(BaseModel):
+    entity_name: str = Field(min_length=2)
+    user: UserDetails
+    report_type: str = Field(pattern=r"^(project|proprietor|none)$")
+    state: str | None = None
+    rera_id: str | None = None
+    promoter_name: str | None = None
+    promoter_gst: str | None = None
+    promoter_pan: str | None = None
+    report_includes: list[str] = Field(default_factory=list)
 
 
 class PlaceReportRequest(BaseModel):
@@ -98,6 +138,56 @@ async def api_place_report(
                 "watch the terminal where run_api.py is running for logs."
             ),
         }
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.post("/api/discovery/place-report")
+async def api_discovery_place_report(
+    body: DiscoveryPlaceReportRequest,
+    background_tasks: BackgroundTasks,
+) -> dict[str, Any]:
+    try:
+        report = create_discovery_report(
+            entity_name=body.entity_name,
+            user_name=body.user.name,
+            user_email=str(body.user.email),
+            user_mobile=body.user.mobile,
+            report_type=body.report_type,
+            state=body.state,
+            rera_id=body.rera_id,
+            promoter_name=body.promoter_name,
+            promoter_gst=body.promoter_gst,
+            promoter_pan=body.promoter_pan,
+            report_includes=body.report_includes,
+            mongo_uri=MONGO_URI,
+        )
+        background_tasks.add_task(
+            run_discovery_background_scrape,
+            report["report_id"],
+            body.entity_name,
+            report_type=body.report_type,
+            state=body.state,
+            rera_id=body.rera_id,
+            promoter_name=body.promoter_name,
+            promoter_gst=body.promoter_gst,
+            promoter_pan=body.promoter_pan,
+            mongo_uri=MONGO_URI,
+            infra_db=DB_NAME,
+        )
+        message = (
+            "Report saved. Promoter portfolio is being loaded from INFRA.Telangana_Detailed."
+        )
+        if body.report_type == "proprietor":
+            message += " RiskMaster wishlist will be created in the background."
+        return {
+            "report_id": report["report_id"],
+            "status": report["status"],
+            "report_name": report["report_request"]["report_name"],
+            "message": message,
+        }
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 

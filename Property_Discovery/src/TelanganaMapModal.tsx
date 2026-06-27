@@ -5,6 +5,7 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import { ArrowLeft, MapPin, Loader2 } from 'lucide-react';
+import { API_BASE_URL } from './apiConfig';
 
 export interface MapProjectPoint {
   mongo_id: string;
@@ -73,7 +74,7 @@ export default function TelanganaMapModal({
   isOpen,
   onClose,
   searchQuery = '',
-  apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://property-duediligence.onrender.com',
+  apiBaseUrl = API_BASE_URL,
 }: TelanganaMapModalProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
