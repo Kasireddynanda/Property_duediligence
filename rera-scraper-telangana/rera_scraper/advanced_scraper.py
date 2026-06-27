@@ -10,7 +10,11 @@ from urllib.parse import urljoin
 from playwright.async_api import Browser, BrowserContext, Page, async_playwright
 
 from .captcha import refresh_captcha, solve_captcha_from_page
-from .certificates import parse_directions_onclick, parse_map_onclick
+from .certificates import (
+    build_certificate_metadata,
+    parse_directions_onclick,
+    parse_map_onclick,
+)
 from .infra_store import InfraProjectStore
 
 SEARCH_URL = "https://rerait.telangana.gov.in/SearchList/Search"
@@ -37,6 +41,20 @@ def _project_identity_key(row: dict[str, Any]) -> tuple[str, str, str, str]:
     return project_identity_key(row)
 
 
+def _attach_certificate_metadata(record: dict[str, Any]) -> dict[str, Any]:
+    if not record.get("certificate"):
+        cert = build_certificate_metadata(record.get("certificate_qstr"))
+        if cert:
+            record["certificate"] = cert
+
+    if not record.get("extension_certificate"):
+        ext = build_certificate_metadata(record.get("extension_certificate_qstr"))
+        if ext:
+            record["extension_certificate"] = ext
+
+    return record
+
+
 def _merge_listing_and_detail(
     listing: dict[str, Any],
     detail: dict[str, Any],
@@ -48,13 +66,14 @@ def _merge_listing_and_detail(
     district_name = str(search.get("district_name", ""))
     detail_body = {k: v for k, v in detail.items() if k != "detail_url"}
 
-    return {
+    record = {
         **listing,
         **detail,
         "district_hash": district_hash(district_id, district_name),
         "content_hash": content_hash(detail_body),
         "state": "Telangana",
     }
+    return _attach_certificate_metadata(record)
 
 
 @dataclass

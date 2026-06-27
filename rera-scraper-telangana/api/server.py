@@ -257,6 +257,8 @@ def generic_search(q: str, collection: str, page: int = 1, page_size: int = 20) 
     skip = (page - 1) * page_size
     cursor = coll.find(query, {"_id": 0}).skip(skip).limit(page_size)
     results = list(cursor)
+    if collection == "Telangana_Detailed":
+        results = [_enrich_telangana_certificate_urls(doc) for doc in results]
     total = coll.count_documents(query)
     client.close()
     
@@ -266,6 +268,22 @@ def generic_search(q: str, collection: str, page: int = 1, page_size: int = 20) 
         "page_size": page_size,
         "results": results
     }
+
+def _enrich_telangana_certificate_urls(doc: dict[str, Any]) -> dict[str, Any]:
+    from rera_scraper.certificates import build_certificate_metadata
+
+    if not doc.get("certificate"):
+        cert = build_certificate_metadata(doc.get("certificate_qstr"))
+        if cert:
+            doc["certificate"] = cert
+
+    if not doc.get("extension_certificate"):
+        ext = build_certificate_metadata(doc.get("extension_certificate_qstr"))
+        if ext:
+            doc["extension_certificate"] = ext
+
+    return doc
+
 
 @app.get("/api/generic/details")
 def generic_details(
@@ -284,6 +302,8 @@ def generic_details(
     client.close()
     if not doc:
         raise HTTPException(status_code=404, detail="Project not found")
+    if collection == "Telangana_Detailed":
+        doc = _enrich_telangana_certificate_urls(doc)
     return {"status": "success", "data": doc}
 
 class RecentSearch(BaseModel):

@@ -58,6 +58,24 @@ def parse_directions_onclick(onclick: str | None) -> dict[str, str] | None:
     return {"latitude": match.group(1), "longitude": match.group(2)}
 
 
+def build_certificate_download_url(qstr: str) -> str:
+    return (
+        f"{BASE_URL}/SearchList/GetShowCertificateFileContent"
+        f"?QueryStringID={quote(qstr, safe='')}"
+    )
+
+
+def build_certificate_metadata(qstr: str | None) -> dict[str, Any] | None:
+    """Build certificate URL + decoded params without downloading the PDF."""
+    if not qstr:
+        return None
+    return {
+        "qstr": qstr,
+        "params": decode_qstr(qstr),
+        "download_url": build_certificate_download_url(qstr),
+    }
+
+
 async def build_certificate_payload(
     context: BrowserContext,
     qstr: str | None,
@@ -65,16 +83,11 @@ async def build_certificate_payload(
     if not qstr:
         return None
 
-    pdf_bytes = await fetch_certificate_pdf(context, qstr)
-    payload: dict[str, Any] = {
-        "qstr": qstr,
-        "params": decode_qstr(qstr),
-        "download_url": (
-            f"{BASE_URL}/SearchList/GetShowCertificateFileContent"
-            f"?QueryStringID={quote(qstr, safe='')}"
-        ),
-    }
+    payload = build_certificate_metadata(qstr)
+    if not payload:
+        return None
 
+    pdf_bytes = await fetch_certificate_pdf(context, qstr)
     if pdf_bytes:
         payload["pdf_size_bytes"] = len(pdf_bytes)
         payload["pdf_base64"] = base64.b64encode(pdf_bytes).decode("ascii")

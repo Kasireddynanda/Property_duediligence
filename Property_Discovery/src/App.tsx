@@ -89,6 +89,22 @@ const STATE_OPTIONS = [
   { code: 'KA', label: 'Karnataka (KA)' },
 ] as const;
 
+const TELANGANA_CERTIFICATE_BASE =
+  'https://rerait.telangana.gov.in/SearchList/GetShowCertificateFileContent';
+
+function buildTelanganaCertificateUrl(qstr?: string | null): string | undefined {
+  if (!qstr) return undefined;
+  return `${TELANGANA_CERTIFICATE_BASE}?QueryStringID=${encodeURIComponent(qstr)}`;
+}
+
+function resolveTelanganaCertificate(project: any): { download_url?: string } | undefined {
+  if (project.certificate?.download_url) {
+    return project.certificate;
+  }
+  const downloadUrl = buildTelanganaCertificateUrl(project.certificate_qstr);
+  return downloadUrl ? { download_url: downloadUrl } : undefined;
+}
+
 const TELANGANA_DETAIL_SECTIONS = [
   'promoter_information',
   'project_information',
@@ -109,6 +125,11 @@ function buildTelanganaLiveDetails(project: any): Record<string, Record<string, 
   }
   if (project.certificate && typeof project.certificate === 'object') {
     sections.certificate = project.certificate;
+  } else {
+    const cert = resolveTelanganaCertificate(project);
+    if (cert) {
+      sections.certificate = cert;
+    }
   }
   return sections;
 }
@@ -158,7 +179,10 @@ function applyTelanganaDbRecord(base: Property, dbRecord: any): Property {
       ? `Financed by ${dbRecord.bank_details['Bank Name']}`
       : base.financialStatus,
     liveDetails: Object.keys(liveDetails).length > 0 ? liveDetails : base.liveDetails,
-    originalData: dbRecord,
+    originalData: {
+      ...dbRecord,
+      certificate: dbRecord.certificate || resolveTelanganaCertificate(dbRecord),
+    },
   };
 }
 
