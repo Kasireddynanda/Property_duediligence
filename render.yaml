@@ -10,3 +10,29 @@ services:
         sync: false
       - key: DB_NAME
         value: INFRA
+      - key: RISKMASTER_API_URL
+        value: https://api.riskmaster.signalx.ai/query
+      - key: RISKMASTER_REFERER
+        value: https://riskmaster.signalx.ai/
+      - key: RISKMASTER_APP_ID
+        value: "4"
+      - key: RISKMASTER_ORG_ID
+        value: "44"
+      - key: RISKMASTER_COMPANY_ID
+        value: "144"
+      - key: RISKMASTER_DEPARTMENT_ID
+        value: "87"
+      - key: RISKMASTER_USERNAME
+        sync: false
+      - key: RISKMASTER_PASSWORD
+        sync: false
+      - key: RISKMASTER_OTP
+        sync: false
+      - key: SMTP_SERVER
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
