@@ -64,6 +64,19 @@ mutation createWishlistv2($name: String!, $org_id: Int!, $cps: WCPInputV2!, $com
 }
 """.strip()
 
+CREATE_MULTIPLE_SIGNALX_REPORT_MUTATION = """
+mutation CreateMultipleSignalXReport($request: MultipleSignalXReportRequest!) {
+  createMultipleSignalXReport(request: $request) {
+    message
+    code
+    report_requests {
+      id
+      entity_id
+    }
+  }
+}
+""".strip()
+
 
 def _verbose_logging() -> bool:
     return os.getenv("RISKMASTER_VERBOSE", "true").lower() in {"1", "true", "yes"}
@@ -496,4 +509,91 @@ def create_promoter_wishlist(
         "raw_response": _redact_response(parsed),
         "debug_trace": debug_trace,
         "wishlist_request": _redact_payload(payload),
+    }
+
+
+def create_multiple_signalx_report(
+    *,
+    entity_name: str,
+    pan: str,
+    wishlist_id: str,
+    company_id: int | None = None,
+    department_id: int | None = None,
+    org_id: int | None = None,
+) -> dict[str, Any]:
+    """Trigger the CreateMultipleSignalXReport mutation on RiskMaster."""
+    debug_trace: list[dict[str, Any]] = []
+
+    logger.info(
+        "=== RiskMaster REPORT FLOW START === entity=%r pan=%s wishlist_id=%s",
+        entity_name,
+        pan,
+        wishlist_id,
+    )
+
+    if not riskmaster_configured():
+        raise RuntimeError("RiskMaster is not configured for report creation.")
+
+    auth = authenticate_riskmaster(debug_trace=debug_trace)
+    auth_token = auth["auth_token"]
+
+    payload = {
+        "operationName": "CreateMultipleSignalXReport",
+        "query": CREATE_MULTIPLE_SIGNALX_REPORT_MUTATION,
+        "variables": {
+            "request": {
+                "report_requests": [
+                    {
+                        "company_id": company_id or int(os.getenv("RISKMASTER_COMPANY_ID", "0")),
+                        "department_id": department_id or int(os.getenv("RISKMASTER_DEPARTMENT_ID", "0")),
+                        "entity_details": {
+                            "corporate": None,
+                            "director": None,
+                            "individual": None,
+                            "non_corporate": {
+                                "name": entity_name,
+                                "pan": pan,
+                            },
+                        },
+                        "entity_id": pan or entity_name,
+                        "entity_type": "NON_CORPORATE",
+                        "org_id": org_id or int(os.getenv("RISKMASTER_ORG_ID", "44")),
+                        "report_type": "STANDARD",
+                        "wishlist_id": wishlist_id,
+                    }
+                ]
+            }
+        },
+    }
+
+    parsed = _graphql_request(
+        payload,
+        operation="CreateMultipleSignalXReport",
+        auth_token=auth_token,
+        debug_trace=debug_trace,
+    )
+
+    result = (parsed.get("data") or {}).get("createMultipleSignalXReport")
+    if not result:
+        logger.error(
+            "CreateMultipleSignalXReport returned no data. Full response:\n%s",
+            _json_pretty(parsed),
+        )
+        raise _fail(
+            f"RiskMaster API returned no report data: {_json_pretty(parsed)}",
+            debug_trace=debug_trace,
+        )
+
+    logger.info(
+        "=== RiskMaster REPORT FLOW SUCCESS === message=%s code=%s",
+        result.get("message"),
+        result.get("code"),
+    )
+
+    return {
+        "success": True,
+        "requested_at": datetime.now(UTC).isoformat(),
+        "report_result": result,
+        "raw_response": _redact_response(parsed),
+        "debug_trace": debug_trace,
     }

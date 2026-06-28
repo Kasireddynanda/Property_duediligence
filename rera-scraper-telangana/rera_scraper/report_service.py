@@ -340,9 +340,19 @@ async def run_discovery_background_scrape(
                         pan=pan,
                         gstin=gstin or None,
                     )
-                    log(
-                        f"RiskMaster wishlist created: id={riskmaster_result.get('wishlist', {}).get('id')}"
-                    )
+                    wishlist_id = riskmaster_result.get("wishlist", {}).get("id")
+                    log(f"RiskMaster wishlist created: id={wishlist_id}")
+
+                    if wishlist_id:
+                        from .riskmaster_client import create_multiple_signalx_report
+                        log("Triggering RiskMaster SignalX Report generation...")
+                        report_result = create_multiple_signalx_report(
+                            entity_name=resolved_promoter,
+                            pan=pan,
+                            wishlist_id=wishlist_id,
+                        )
+                        riskmaster_result["report_creation"] = report_result
+                        log("RiskMaster SignalX Report triggered successfully.")
                 except RiskMasterError as exc:
                     riskmaster_error = str(exc)
                     riskmaster_result = {

@@ -623,6 +623,29 @@ async function loadPropertyWithFullDetails(project: any, state: string): Promise
   return prop;
 }
 
+const RERA_FACTS = [
+  "RERA stands for Real Estate (Regulation and Development) Act, 2016.",
+  "The Act was passed by the Indian Parliament in 2016 and became fully effective on 1 May 2017.",
+  "RERA was introduced to bring transparency, accountability, and efficiency to the real estate sector.",
+  "Every state and union territory has its own Real Estate Regulatory Authority (RERA).",
+  "Most real estate projects with more than 8 apartments or over 500 sq. meters of land must be registered under RERA.",
+  "Builders cannot advertise, market, or sell a project without RERA registration.",
+  "Developers must deposit 70% of buyers' funds in a separate escrow account for construction and land costs.",
+  "Properties must be sold based on Carpet Area, not super built-up area.",
+  "Developers are required to provide regular project updates on the state RERA portal.",
+  "Buyers have the right to know project approvals, layout plans, completion timelines, and litigation details.",
+  "If a builder delays possession, buyers can seek compensation or request a refund with interest.",
+  "Builders are responsible for structural defects for five years after possession.",
+  "RERA has established a dedicated dispute resolution mechanism through the Authority and Appellate Tribunal.",
+  "Non-compliance with RERA can result in heavy penalties, cancellation of registration, or imprisonment.",
+  "RERA has significantly improved homebuyer protection and developer accountability in India.",
+  "State RERA portals contain millions of property and developer records, making them valuable for due diligence and real estate analytics.",
+  "RERA data can be used for property verification, developer risk assessment, fraud detection, and investment intelligence.",
+  "Maharashtra has the highest number of RERA-registered projects in India.",
+  "RERA has increased trust and transparency in India's real estate market.",
+  "The Act empowers homebuyers by giving them legal rights and access to reliable project information."
+];
+
 function App() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -685,6 +708,17 @@ function App() {
   const [headerSuggestions, setHeaderSuggestions] = useState<NameSuggestion[]>([]);
   const [headerSearchLoading, setHeaderSearchLoading] = useState<boolean>(false);
   const [showHeaderSuggestions, setShowHeaderSuggestions] = useState<boolean>(false);
+
+  const [currentFactIndex, setCurrentFactIndex] = useState(0);
+
+  useEffect(() => {
+    if (isLoading || headerSearchLoading) {
+      const interval = setInterval(() => {
+        setCurrentFactIndex((prev) => (prev + 1) % RERA_FACTS.length);
+      }, 10000);
+      return () => clearInterval(interval);
+    }
+  }, [isLoading, headerSearchLoading]);
 
   const headerSearchRef = useRef<HTMLDivElement>(null);
   const headerInputRef = useRef<HTMLInputElement>(null);
@@ -756,30 +790,7 @@ function App() {
       const query = searchQuery.trim();
       const resultsList: UnifiedSuggestion[] = [];
 
-      // 1. Match against local mock database using fuzzy logic
-      const localMatches = MOCK_PROPERTIES.map(p => {
-        const score = Math.max(
-          fuzzyScore(query, p.name),
-          fuzzyScore(query, p.ownerName),
-          fuzzyScore(query, p.surveyNo),
-          fuzzyScore(query, p.location)
-        );
-        return {
-          id: p.id,
-          type: 'property' as const,
-          name: p.name,
-          subtitle: `Owner: ${p.ownerName} | Survey: ${p.surveyNo} | ${p.location}`,
-          badgeText: `${p.status} risk`,
-          riskStatus: p.status,
-          score,
-          originalData: p
-        };
-      }).filter(item => item.score > 10);
-      resultsList.push(...localMatches);
-
-
-
-      // 3. Fetch from local RERA Search API
+      // Fetch from local RERA Search API
       try {
         if (selectedState === 'DL' || selectedState === 'MP' || selectedState === 'TS') {
           const collectionName =
@@ -1249,11 +1260,13 @@ function App() {
             {/* Autocomplete Dropdown List */}
             {showSuggestions && searchQuery.trim() !== '' && (
               <div className="suggestions-dropdown">
-                <div className="suggestion-header">Fuzzy Matched Records</div>
+                <div className="suggestion-header">Matched Records</div>
                 {isLoading ? (
-                  <div style={{ padding: '16px 18px', fontSize: '13px', color: 'var(--slate-500)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div className="loader-ring" style={{ width: 14, height: 14 }}></div>
-                    <span>Fuzzy searching across databases...</span>
+                  <div style={{ padding: '16px 18px', fontSize: '13px', color: 'var(--slate-500)', display: 'flex', alignItems: 'flex-start', gap: '8px', lineHeight: 1.4 }}>
+                    <div className="loader-ring" style={{ width: 14, height: 14, flexShrink: 0, marginTop: '2px' }}></div>
+                    <span style={{ fontStyle: 'italic' }}>
+                      <strong>Quick Fact:</strong> <span style={{ fontWeight: 500, color: 'var(--slate-700)' }}>{RERA_FACTS[currentFactIndex]}</span>
+                    </span>
                   </div>
                 ) : suggestions.length > 0 ? (
                   suggestions.map(item => (
