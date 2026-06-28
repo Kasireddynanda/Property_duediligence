@@ -440,3 +440,13 @@ def get_recent_searches(limit: int = 6) -> dict[str, Any]:
                 
     client.close()
     return {"status": "success", "data": unique_queries}
+
+@app.get("/api/news")
+def get_news() -> dict[str, Any]:
+    from rera_scraper.newe_scrapper import scrape_hyderabad_news
+    result = scrape_hyderabad_news()
+    if result.get("status") == "success":
+        return result
+    else:
+        raise HTTPException(status_code=500, detail=result.get("message", "Failed to fetch news"))
+

@@ -20,7 +20,8 @@ import {
   Users,
   Monitor,
   CheckCircle2,
-  Info
+  Info,
+  Newspaper
 } from 'lucide-react';
 
 interface UnifiedSuggestion {
@@ -687,6 +688,9 @@ function App() {
 
   const [selectedState, setSelectedState] = useState<string>('TS');
   const [showStateDropdown, setShowStateDropdown] = useState<boolean>(false);
+  const [showNewsModal, setShowNewsModal] = useState<boolean>(false);
+  const [newsData, setNewsData] = useState<any[]>([]);
+  const [isNewsLoading, setIsNewsLoading] = useState<boolean>(false);
   const [showMapModal, setShowMapModal] = useState<boolean>(false);
 
   // New States for Lead Capture and Details View
@@ -1152,7 +1156,34 @@ function App() {
             <button
               type="button"
               className="map-header-btn"
-              title="Open Telangana project map"
+              data-tooltip="Property News"
+              onClick={async () => {
+                setShowNewsModal(true);
+                if (newsData.length === 0) {
+                  setIsNewsLoading(true);
+                  try {
+                    const res = await fetch(`${API_BASE_URL}/api/news`);
+                    const data = await res.json();
+                    if (data.status === 'success') {
+                      setNewsData(data.data);
+                    }
+                  } catch (e) {
+                    console.error('Failed to load news', e);
+                  } finally {
+                    setIsNewsLoading(false);
+                  }
+                }
+              }}
+            >
+              <Newspaper size={16} />
+            </button>
+          )}
+
+          {selectedState === 'TS' && (
+            <button
+              type="button"
+              className="map-header-btn"
+              data-tooltip="Open Telangana project map"
               onClick={() => setShowMapModal(true)}
             >
               <Map size={16} />
@@ -1887,6 +1918,65 @@ function App() {
         onClose={() => setShowMapModal(false)}
         searchQuery={searchQuery}
       />
+
+      {/* News Modal */}
+      {showNewsModal && (
+        <div className="modal-overlay" onClick={() => setShowNewsModal(false)} style={{ zIndex: 1000, display: 'flex', justifyContent: 'flex-end', backgroundColor: 'rgba(15, 23, 42, 0.4)' }}>
+          <div 
+            className="news-panel" 
+            onClick={(e) => e.stopPropagation()} 
+            style={{ width: '100%', maxWidth: '420px', backgroundColor: '#fff', height: '100%', display: 'flex', flexDirection: 'column', boxShadow: '-5px 0 25px rgba(0,0,0,0.1)', animation: 'slideInRight 0.3s ease-out' }}
+          >
+            <div style={{ padding: '20px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Newspaper size={20} color="#3b82f6" />
+                <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#0f172a', margin: 0 }}>Real Estate News</h2>
+              </div>
+              <button 
+                onClick={() => setShowNewsModal(false)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#64748b' }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            <div style={{ flex: 1, overflowY: 'auto', padding: '20px', backgroundColor: '#f1f5f9' }}>
+              {isNewsLoading ? (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '200px', color: '#64748b' }}>
+                  <Loader2 size={24} className="map-spinner" style={{ marginBottom: '12px', color: '#3b82f6' }} />
+                  <span>Loading latest news...</span>
+                </div>
+              ) : newsData.length > 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {newsData.map((news, idx) => (
+                    <div key={idx} style={{ backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+                      <a href={news.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
+                        <img 
+                          src={`https://loremflickr.com/400/200/india,skyscraper,modern?lock=${idx + 30}`} 
+                          alt="Modern Skyscraper" 
+                          style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
+                        />
+                        <div style={{ padding: '16px' }}>
+                          <h3 style={{ margin: '0 0 8px 0', fontSize: '15px', color: '#1e40af', lineHeight: 1.4, fontWeight: 600 }}>{news.title}</h3>
+                          <p style={{ margin: '0 0 12px 0', fontSize: '13px', color: '#475569', lineHeight: 1.5 }}>{news.snippet}</p>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#94a3b8' }}>
+                            <span style={{ fontWeight: 500 }}>By {news.author}</span>
+                            <span>{news.date}</span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center', color: '#64748b', padding: '40px 20px' }}>
+                  No news available right now.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Background City Skyline (Blue vector outline art) */}
       <div className="skyline-container">

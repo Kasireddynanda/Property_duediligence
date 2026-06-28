@@ -1657,3 +1657,52 @@ body {
 }
 
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Custom Tooltip for Header Actions */
+.map-header-btn {
+  position: relative;
+}
+
+.map-header-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(15, 23, 42, 0.9);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, bottom 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.map-header-btn::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 4px 4px 4px;
+  border-style: solid;
+  border-color: transparent transparent rgba(15, 23, 42, 0.9) transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.map-header-btn:hover::after,
+.map-header-btn:hover::before {
+  opacity: 1;
+}
+
+.map-header-btn:hover::after {
+  bottom: -28px;
+}
