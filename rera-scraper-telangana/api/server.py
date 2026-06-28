@@ -17,6 +17,7 @@ from rera_scraper.report_service import (
     run_background_scrape,
     run_discovery_background_scrape,
 )
+from rera_scraper.email_service import send_report_confirmation_email
 
 import os
 import re
@@ -129,6 +130,13 @@ async def api_place_report(
             report["report_id"],
             body.entity_name,
         )
+        background_tasks.add_task(
+            send_report_confirmation_email,
+            str(body.user.email),
+            body.user.name,
+            body.entity_name,
+            "Due Diligence Report"
+        )
         return {
             "report_id": report["report_id"],
             "status": "processing",
@@ -174,6 +182,13 @@ async def api_discovery_place_report(
             promoter_pan=body.promoter_pan,
             mongo_uri=MONGO_URI,
             infra_db=DB_NAME,
+        )
+        background_tasks.add_task(
+            send_report_confirmation_email,
+            str(body.user.email),
+            body.user.name,
+            body.entity_name,
+            report["report_request"]["report_name"]
         )
         message = (
             "Report saved. Promoter portfolio is being loaded from INFRA.Telangana_Detailed."
