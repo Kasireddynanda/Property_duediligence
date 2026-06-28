@@ -1,8 +1,11 @@
 """Run the RERA report API server."""
 
 import logging
+from dotenv import load_dotenv
 
 import uvicorn
+
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -13,4 +16,4 @@ logging.getLogger("rera.riskmaster").setLevel(logging.INFO)
 logging.getLogger("rera.report").setLevel(logging.INFO)
 
 if __name__ == "__main__":
-    uvicorn.run("api.server:app", host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run("api.server:app", host="0.0.0.0", port=8000, reload=True, env_file=".env")
