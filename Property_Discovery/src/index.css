@@ -1453,7 +1453,7 @@ body {
   padding-bottom: 12px;
 }
 
-.report-option-project {
+.report-option-has-tooltip {
   position: relative;
 }
 
@@ -1483,7 +1483,7 @@ body {
   border-top-color: #0f172a;
 }
 
-.report-option-project:hover .report-includes-tooltip {
+.report-option-has-tooltip:hover .report-includes-tooltip {
   display: block;
 }
 
@@ -1498,7 +1498,8 @@ body {
 
 .report-includes-tooltip-list {
   margin: 0;
-  padding: 0 0 0 16px;
+  padding: 0;
+  list-style-type: none;
   font-size: 12.5px;
   line-height: 1.55;
   color: #e2e8f0;

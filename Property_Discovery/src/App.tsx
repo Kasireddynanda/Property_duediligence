@@ -99,11 +99,11 @@ const PROJECT_REPORT_INCLUDES = [
     description: 'Active and disposed litigation flags linked to this RERA registration.',
   },
   {
-    title: 'Promoters – other projects and their status',
+    title: 'Promotors other projects',
     description: 'Portfolio view of the promoter’s other registered projects and their completion status.',
   },
   {
-    title: 'Risk indicators – key risk factors',
+    title: 'Risk indicators',
     description: 'Key risk takeaways from registry filings, financial disclosures, and compliance signals.',
   },
   {
@@ -112,17 +112,45 @@ const PROJECT_REPORT_INCLUDES = [
   },
 ] as const;
 
+const PROPRIETOR_REPORT_INCLUDES = [
+  {
+    title: 'Company Identity & Status',
+    description: 'Public Limited Company, CIN, age of the company, active status, and location.',
+  },
+  {
+    title: 'Compliance & Registrations',
+    description: 'GST, ESIC, EPF, PAN, TAN, and other statutory registrations.',
+  },
+  {
+    title: 'Ownership & Management',
+    description: 'Number of directors, signatories, and promoter quality.',
+  },
+  {
+    title: 'Risk Indicators',
+    description: 'Financial health, credit history, defaults, blacklists, sanctions, PEP checks, litigation history, and market sentiment.',
+  },
+  {
+    title: 'Business Operations',
+    description: 'Core business activities, nature of business, import/export activities, number of employees, contact details, and operational footprint.',
+  },
+] as const;
+
 function ProjectReportIncludes({
   variant = 'list',
+  reportType = 'project',
 }: {
   variant?: 'list' | 'tooltip' | 'points';
+  reportType?: 'project' | 'proprietor';
 }) {
+  const includes = reportType === 'project' ? PROJECT_REPORT_INCLUDES : PROPRIETOR_REPORT_INCLUDES;
+  const heading = reportType === 'project' ? 'Project Report includes' : 'Promoter Report includes';
+
   if (variant === 'tooltip') {
     return (
       <div className="report-includes-tooltip">
-        <p className="report-includes-tooltip-heading">Project Report includes</p>
+        <p className="report-includes-tooltip-heading">{heading}</p>
         <ul className="report-includes-tooltip-list">
-          {PROJECT_REPORT_INCLUDES.map((item) => (
+          {includes.map((item) => (
             <li key={item.title}>{item.title}</li>
           ))}
         </ul>
@@ -133,7 +161,7 @@ function ProjectReportIncludes({
   if (variant === 'points') {
     return (
       <ul className="report-includes-points">
-        {PROJECT_REPORT_INCLUDES.map((item) => (
+        {includes.map((item) => (
           <li key={item.title}>
             <CheckCircle2 size={16} className="report-includes-point-icon" />
             <div>
@@ -148,7 +176,7 @@ function ProjectReportIncludes({
 
   return (
     <ul className="report-includes-hover-list">
-      {PROJECT_REPORT_INCLUDES.map((item) => (
+      {includes.map((item) => (
         <li key={item.title} className="report-includes-hover-item">
           <div className="report-includes-hover-row">
             <CheckCircle2 size={15} className="report-includes-hover-icon" />
@@ -697,6 +725,8 @@ function App() {
   const [viewMode, setViewMode] = useState<'search' | 'details'>('search');
   const [showLeadModal, setShowLeadModal] = useState<boolean>(false);
   const [showPlaceReportModal, setShowPlaceReportModal] = useState<boolean>(false);
+  const [showReportDropdown, setShowReportDropdown] = useState<boolean>(false);
+  const [placeReportType, setPlaceReportType] = useState<'project' | 'proprietor'>('project');
   const [projectReportPlaced, setProjectReportPlaced] = useState<boolean>(false);
   const [isPlacingReport, setIsPlacingReport] = useState<boolean>(false);
   const [placeReportError, setPlaceReportError] = useState<string | null>(null);
@@ -999,7 +1029,9 @@ function App() {
     setIsPlacingReport(true);
     setPlaceReportError(null);
     try {
-      const reportIncludes = PROJECT_REPORT_INCLUDES.map((item) => item.title);
+      const reportIncludes = placeReportType === 'project' 
+        ? PROJECT_REPORT_INCLUDES.map((item) => item.title)
+        : PROPRIETOR_REPORT_INCLUDES.map((item) => item.title);
       const localId = selectedProperty.id.replace(/[^a-zA-Z0-9-]/g, '') || 'project';
 
       await submitDiscoveryReportRequest({
@@ -1010,7 +1042,7 @@ function App() {
           email: `place-report+${localId}@local.dev`,
           mobile: '9000000000',
         },
-        report_type: 'project',
+        report_type: placeReportType,
         state: selectedState,
         rera_id:
           selectedProperty.reraId && !selectedProperty.reraId.startsWith('RERA-')
@@ -1053,7 +1085,7 @@ function App() {
       const reportIncludes =
         leadForm.reportType === 'project'
           ? PROJECT_REPORT_INCLUDES.map((item) => item.title)
-          : [];
+          : PROPRIETOR_REPORT_INCLUDES.map((item) => item.title);
 
       await submitDiscoveryReportRequest({
         entity_name: selectedProperty.name,
@@ -1526,13 +1558,82 @@ function App() {
                           <FileText size={16} /> RERA Certificate
                         </a>
                       )}
-                      <button
-                        type="button"
-                        className="primary-dropdown-btn"
-                        onClick={() => setShowPlaceReportModal(true)}
-                      >
-                        Place Report
-                      </button>
+                      <div className="report-order-dropdown-wrapper" style={{ position: 'relative' }}>
+                        <button
+                          type="button"
+                          className="primary-dropdown-btn"
+                          onClick={() => setShowReportDropdown(!showReportDropdown)}
+                        >
+                          Place Order <ChevronDown size={16} />
+                        </button>
+                        {showReportDropdown && (
+                          <div className="report-dropdown-menu" style={{
+                            position: 'absolute',
+                            top: '100%',
+                            right: 0,
+                            marginTop: '8px',
+                            background: '#fff',
+                            border: '1px solid #e2e8f0',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                            zIndex: 50,
+                            minWidth: '220px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            overflow: 'hidden'
+                          }}>
+                            <button
+                              type="button"
+                              className="report-dropdown-item"
+                              style={{
+                                padding: '12px 16px',
+                                background: 'transparent',
+                                border: 'none',
+                                textAlign: 'left',
+                                fontSize: '13px',
+                                fontWeight: 600,
+                                color: '#1e293b',
+                                cursor: 'pointer',
+                                borderBottom: '1px solid #e2e8f0',
+                                transition: 'background 0.2s'
+                              }}
+                              onClick={() => {
+                                setPlaceReportType('project');
+                                setShowPlaceReportModal(true);
+                                setShowReportDropdown(false);
+                              }}
+                              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                              onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                            >
+                              Place Project Report
+                            </button>
+                            <button
+                              type="button"
+                              className="report-dropdown-item"
+                              style={{
+                                padding: '12px 16px',
+                                background: 'transparent',
+                                border: 'none',
+                                textAlign: 'left',
+                                fontSize: '13px',
+                                fontWeight: 600,
+                                color: '#1e293b',
+                                cursor: 'pointer',
+                                transition: 'background 0.2s'
+                              }}
+                              onClick={() => {
+                                setPlaceReportType('proprietor');
+                                setShowPlaceReportModal(true);
+                                setShowReportDropdown(false);
+                              }}
+                              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                              onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                            >
+                              Place Promoter Report
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -1718,12 +1819,12 @@ function App() {
             <div className="modal-body place-report-modal-body">
               <p>
                 Do you want to place a due diligence report on{' '}
-                <strong>{selectedProperty.name}</strong>?
+                <strong>{placeReportType === 'proprietor' ? (getPromoterName(selectedProperty) || selectedProperty.ownerName || 'this promoter') : selectedProperty.name}</strong>?
               </p>
 
               <div className="place-report-includes-block">
-                <p className="place-report-includes-label">Your Project Report will include:</p>
-                <ProjectReportIncludes variant="list" />
+                <p className="place-report-includes-label">Your {placeReportType === 'project' ? 'Project' : 'Promoter'} Report will include:</p>
+                <ProjectReportIncludes variant="list" reportType={placeReportType} />
               </div>
 
               <p className="place-report-modal-note">
@@ -1838,7 +1939,7 @@ function App() {
               <div style={{ marginTop: '28px' }}>
                 <label className="form-label" style={{ fontWeight: 600, color: '#334155', marginBottom: '12px', display: 'block', fontSize: '13px' }}>Select Report Scope</label>
                 <div className="report-options-grid">
-                  <label className={`report-option-card report-option-project ${leadForm.reportType === 'project' ? 'selected' : ''}`}>
+                  <label className={`report-option-card report-option-has-tooltip ${leadForm.reportType === 'project' ? 'selected' : ''}`}>
                     <input
                       type="radio"
                       name="reportType"
@@ -1846,7 +1947,7 @@ function App() {
                       checked={leadForm.reportType === 'project'}
                       onChange={() => setLeadForm({ ...leadForm, reportType: 'project' })}
                     />
-                    <ProjectReportIncludes variant="tooltip" />
+                    <ProjectReportIncludes variant="tooltip" reportType="project" />
                     <div className="option-icon-wrapper blue-icon">
                       <Building size={28} strokeWidth={1.75} />
                     </div>
@@ -1854,7 +1955,7 @@ function App() {
                     <span className="option-desc">Hover to see what’s included</span>
                   </label>
 
-                  <label className={`report-option-card ${leadForm.reportType === 'proprietor' ? 'selected' : ''}`}>
+                  <label className={`report-option-card report-option-has-tooltip ${leadForm.reportType === 'proprietor' ? 'selected' : ''}`}>
                     <input
                       type="radio"
                       name="reportType"
@@ -1862,11 +1963,12 @@ function App() {
                       checked={leadForm.reportType === 'proprietor'}
                       onChange={() => setLeadForm({ ...leadForm, reportType: 'proprietor' })}
                     />
+                    <ProjectReportIncludes variant="tooltip" reportType="proprietor" />
                     <div className="option-icon-wrapper purple-icon">
                       <Users size={28} strokeWidth={1.75} />
                     </div>
                     <span className="option-title">Promoter Report</span>
-                    <span className="option-desc">Historical track record</span>
+                    <span className="option-desc">Hover to see what’s included</span>
                   </label>
 
                   <label className={`report-option-card ${leadForm.reportType === 'none' ? 'selected' : ''}`}>
