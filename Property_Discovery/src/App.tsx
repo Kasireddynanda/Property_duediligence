@@ -515,13 +515,10 @@ async function submitDiscoveryReportRequest(payload: {
   promoter_pan?: string;
   report_includes: string[];
 }): Promise<{ report_id: string; message: string }> {
-  const authToken = localStorage.getItem('auth_token') || localStorage.getItem('token') || undefined;
-  const finalPayload = { ...payload, auth_token: authToken };
-
   const res = await fetch(`${API_BASE_URL}/api/discovery/place-report`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(finalPayload),
+    body: JSON.stringify(payload),
   });
 
   const data = await res.json().catch(() => ({}));

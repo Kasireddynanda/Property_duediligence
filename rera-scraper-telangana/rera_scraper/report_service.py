@@ -262,7 +262,6 @@ async def run_discovery_background_scrape(
     infra_db: str = __import__("os").getenv("DB_NAME", "INFRA"),
     mongo_db: str = "RERA-DETAILS",
     mongo_collection: str = "DETAILS",
-    auth_token: str | None = None,
 ) -> None:
     """Load promoter portfolio from INFRA and optionally create RiskMaster wishlist."""
     from .promoter_portfolio import (
@@ -340,7 +339,6 @@ async def run_discovery_background_scrape(
                         promoter_name=resolved_promoter,
                         pan=pan,
                         gstin=gstin or None,
-                        auth_token=auth_token,
                     )
                     wishlist_id = riskmaster_result.get("wishlist", {}).get("id")
                     log(f"RiskMaster wishlist created: id={wishlist_id}")
@@ -352,7 +350,6 @@ async def run_discovery_background_scrape(
                             entity_name=resolved_promoter,
                             pan=pan,
                             wishlist_id=wishlist_id,
-                            auth_token=auth_token,
                         )
                         riskmaster_result["report_creation"] = report_result
                         log("RiskMaster SignalX Report triggered successfully.")

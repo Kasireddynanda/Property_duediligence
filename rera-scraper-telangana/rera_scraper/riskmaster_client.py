@@ -446,7 +446,6 @@ def create_promoter_wishlist(
     pan: str,
     gstin: str | None = None,
     group_name: str | None = None,
-    auth_token: str | None = None,
 ) -> dict[str, Any]:
     """Authenticate (Login -> OTP) then create a RiskMaster wishlist."""
     debug_trace: list[dict[str, Any]] = []
@@ -458,16 +457,13 @@ def create_promoter_wishlist(
         gstin or "N/A",
     )
 
-    if not auth_token and not riskmaster_configured():
+    if not riskmaster_configured():
         raise RuntimeError(
             "RiskMaster is not configured. Set RISKMASTER_USERNAME, "
             "RISKMASTER_PASSWORD, and RISKMASTER_OTP (or RISKMASTER_AUTH_TOKEN)."
         )
 
-    if auth_token:
-        auth = {"auth_token": auth_token, "auth_method": "provided_token"}
-    else:
-        auth = authenticate_riskmaster(debug_trace=debug_trace)
+    auth = authenticate_riskmaster(debug_trace=debug_trace)
     auth_token = auth["auth_token"]
 
     payload = build_create_wishlist_payload(
@@ -524,7 +520,6 @@ def create_multiple_signalx_report(
     company_id: int | None = None,
     department_id: int | None = None,
     org_id: int | None = None,
-    auth_token: str | None = None,
 ) -> dict[str, Any]:
     """Trigger the CreateMultipleSignalXReport mutation on RiskMaster."""
     debug_trace: list[dict[str, Any]] = []
@@ -536,13 +531,10 @@ def create_multiple_signalx_report(
         wishlist_id,
     )
 
-    if not auth_token and not riskmaster_configured():
+    if not riskmaster_configured():
         raise RuntimeError("RiskMaster is not configured for report creation.")
 
-    if auth_token:
-        auth = {"auth_token": auth_token, "auth_method": "provided_token"}
-    else:
-        auth = authenticate_riskmaster(debug_trace=debug_trace)
+    auth = authenticate_riskmaster(debug_trace=debug_trace)
     auth_token = auth["auth_token"]
 
     payload = {

@@ -94,7 +94,6 @@ class DiscoveryPlaceReportRequest(BaseModel):
     promoter_gst: str | None = None
     promoter_pan: str | None = None
     report_includes: list[str] = Field(default_factory=list)
-    auth_token: str | None = None
 
 
 class PlaceReportRequest(BaseModel):
@@ -175,7 +174,6 @@ async def api_discovery_place_report(
             promoter_pan=body.promoter_pan,
             mongo_uri=MONGO_URI,
             infra_db=DB_NAME,
-            auth_token=body.auth_token,
         )
         message = (
             "Report saved. Promoter portfolio is being loaded from INFRA.Telangana_Detailed."
