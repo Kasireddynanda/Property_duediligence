@@ -549,7 +549,7 @@ function getCollectionForState(state: string): string | null {
   return null;
 }
 
-async function fetchInfraSearchResults(query: string, state: string): Promise<any[]> {
+async function fetchInfraSearchResults(query: string, state: string, signal?: AbortSignal): Promise<any[]> {
   const collection = getCollectionForState(state);
   if (collection) {
     const params = new URLSearchParams({
@@ -558,7 +558,7 @@ async function fetchInfraSearchResults(query: string, state: string): Promise<an
       page: '1',
       page_size: '8',
     });
-    const res = await fetch(`${API_BASE_URL}/api/generic/search?${params}`);
+    const res = await fetch(`${API_BASE_URL}/api/generic/search?${params}`, { signal });
     if (res.ok) {
       const data = await res.json();
       return data.results || [];
@@ -567,7 +567,7 @@ async function fetchInfraSearchResults(query: string, state: string): Promise<an
   }
 
   const params = new URLSearchParams({ q: query, page: '1', page_size: '8' });
-  const res = await fetch(`${API_BASE_URL}/api/infra/search?${params}`);
+  const res = await fetch(`${API_BASE_URL}/api/infra/search?${params}`, { signal });
   if (res.ok) {
     const data = await res.json();
     return data.results || [];
@@ -627,6 +627,8 @@ function App() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const searchCacheRef = useRef<Record<string, UnifiedSuggestion[]>>({});
+  const headerSearchCacheRef = useRef<Record<string, NameSuggestion[]>>({});
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/recent-searches`)
@@ -736,12 +738,20 @@ function App() {
 
   // Debounced fuzzy search effect integrating the APIs from rera-scraper & hi-extension
   useEffect(() => {
-    if (!searchQuery.trim()) {
+    if (!searchQuery.trim() || searchQuery.trim().length < 3) {
       setSuggestions([]);
       return;
     }
 
+    const queryKey = `${selectedState}-${searchQuery.trim().toLowerCase()}`;
+    if (searchCacheRef.current[queryKey]) {
+      setSuggestions(searchCacheRef.current[queryKey]);
+      return;
+    }
+
     setIsLoading(true);
+    const abortController = new AbortController();
+
     const delayDebounceFn = setTimeout(async () => {
       const query = searchQuery.trim();
       const resultsList: UnifiedSuggestion[] = [];
@@ -784,7 +794,7 @@ function App() {
             page: "1",
             page_size: "5"
           });
-          const res = await fetch(`${API_BASE_URL}/api/generic/search?${params}`);
+          const res = await fetch(`${API_BASE_URL}/api/generic/search?${params}`, { signal: abortController.signal });
           if (res.ok) {
             const data = await res.json();
             if (data && data.results) {
@@ -816,7 +826,7 @@ function App() {
             page: "1",
             page_size: "5"
           });
-          const res = await fetch(`${API_BASE_URL}/api/infra/search?${params}`);
+          const res = await fetch(`${API_BASE_URL}/api/infra/search?${params}`, { signal: abortController.signal });
           if (res.ok) {
             const data = await res.json();
             if (data && data.results) {
@@ -840,8 +850,10 @@ function App() {
             }
           }
         }
-      } catch (err) {
-        console.warn("Local RERA Search API is currently unreachable", err);
+      } catch (err: any) {
+        if (err.name !== 'AbortError') {
+          console.warn("Local RERA Search API is currently unreachable", err);
+        }
       }
 
       // Sort aggregated list by fuzzy score descending
@@ -858,10 +870,14 @@ function App() {
       }
 
       setSuggestions(uniqueResults);
+      searchCacheRef.current[queryKey] = uniqueResults;
       setIsLoading(false);
     }, 300);
 
-    return () => clearTimeout(delayDebounceFn);
+    return () => {
+      clearTimeout(delayDebounceFn);
+      abortController.abort();
+    };
   }, [searchQuery, selectedState]);
 
   useEffect(() => {
@@ -890,17 +906,25 @@ function App() {
   }, [headerSearchActive]);
 
   useEffect(() => {
-    if (!headerSearchActive || !headerSearchQuery.trim()) {
+    if (!headerSearchActive || !headerSearchQuery.trim() || headerSearchQuery.trim().length < 3) {
       setHeaderSuggestions([]);
       setHeaderSearchLoading(false);
       return;
     }
 
+    const queryKey = `${selectedState}-${headerSearchQuery.trim().toLowerCase()}`;
+    if (headerSearchCacheRef.current[queryKey]) {
+      setHeaderSuggestions(headerSearchCacheRef.current[queryKey]);
+      return;
+    }
+
     setHeaderSearchLoading(true);
+    const abortController = new AbortController();
+
     const delayDebounceFn = setTimeout(async () => {
       const query = headerSearchQuery.trim();
       try {
-        const results = await fetchInfraSearchResults(query, selectedState);
+        const results = await fetchInfraSearchResults(query, selectedState, abortController.signal);
         const names: NameSuggestion[] = results.map((project: any) => ({
           id: `header-${(project.project_name || 'unknown').replace(/\s+/g, '_')}`,
           name: project.project_name || 'Unknown Project',
@@ -918,15 +942,21 @@ function App() {
         }
 
         setHeaderSuggestions(unique);
-      } catch (err) {
-        console.warn('Header search failed', err);
-        setHeaderSuggestions([]);
+        headerSearchCacheRef.current[queryKey] = unique;
+      } catch (err: any) {
+        if (err.name !== 'AbortError') {
+          console.warn('Header search failed', err);
+          setHeaderSuggestions([]);
+        }
       } finally {
         setHeaderSearchLoading(false);
       }
     }, 300);
 
-    return () => clearTimeout(delayDebounceFn);
+    return () => {
+      clearTimeout(delayDebounceFn);
+      abortController.abort();
+    };
   }, [headerSearchQuery, headerSearchActive, selectedState]);
 
   const handleHeaderSuggestionSelect = async (item: NameSuggestion) => {
@@ -1569,14 +1599,14 @@ function App() {
 
                   {/* Dynamic Live Details Rendering */}
                   {selectedProperty.liveDetails && Object.entries(selectedProperty.liveDetails)
-                    .sort(([keyA], [keyB]) => {
-                      if (keyA.toLowerCase().includes('bank_details')) return 1;
-                      if (keyB.toLowerCase().includes('bank_details')) return -1;
-                      return 0;
-                    })
                     .map(([key, value]) => {
                       if (typeof value !== 'object' || value === null || Array.isArray(value)) return null;
-                      if (key === 'directions' || key === 'certificate' || key === 'extension_certificate') return null;
+                      if (
+                        key === 'directions' || 
+                        key === 'certificate' || 
+                        key === 'extension_certificate' ||
+                        key.toLowerCase().includes('bank')
+                      ) return null;
 
                       return (
                         <div key={key} className="details-table-card" style={{ marginTop: '24px' }}>
