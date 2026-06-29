@@ -2056,8 +2056,8 @@ function App() {
                     <div key={idx} style={{ backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
                       <a href={news.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
                         <img 
-                          src={`https://loremflickr.com/400/200/india,skyscraper,modern?lock=${idx + 30}`} 
-                          alt="Modern Skyscraper" 
+                          src={`https://picsum.photos/seed/property${idx + 1}/400/200`} 
+                          alt="News thumbnail" 
                           style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
                         />
                         <div style={{ padding: '16px' }}>
