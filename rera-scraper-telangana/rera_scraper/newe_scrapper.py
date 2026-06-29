@@ -106,6 +106,46 @@ def scrape_hyderabad_news():
                 "author": "Shalini Saraf",
                 "date": "Mar 17, 2026",
                 "views": "37338"
+            },
+            {
+                "title": "Kompally Real Estate: A rising star for budget and mid-segment homebuyers",
+                "link": "https://www.99acres.com/articles/invest-in-kompally-hyderabad.html",
+                "snippet": "Kompally has witnessed significant infrastructural growth...",
+                "author": "Rahul Sharma",
+                "date": "Feb 22, 2026",
+                "views": "1542"
+            },
+            {
+                "title": "Hyderabad Metro expansion: How it's driving property prices in specific corridors",
+                "link": "https://www.99acres.com/articles/hyderabad-metro-impact.html",
+                "snippet": "The proposed new phases of the Hyderabad Metro are expected...",
+                "author": "Anita Desai",
+                "date": "Jan 10, 2026",
+                "views": "8902"
+            },
+            {
+                "title": "Gachibowli vs HITEC City: Where should you invest in 2026?",
+                "link": "https://www.99acres.com/articles/gachibowli-vs-hitec-city.html",
+                "snippet": "An in-depth analysis of rental yields and capital appreciation...",
+                "author": "Priya Singh",
+                "date": "Dec 05, 2025",
+                "views": "4521"
+            },
+            {
+                "title": "Upcoming IT parks in Eastern Hyderabad to boost local real estate",
+                "link": "https://www.99acres.com/articles/eastern-hyderabad-it-parks.html",
+                "snippet": "The eastern corridor of Hyderabad, particularly Pocharam and Uppal...",
+                "author": "Vikram Reddy",
+                "date": "Nov 18, 2025",
+                "views": "2104"
+            },
+            {
+                "title": "Why NRIs continue to prefer Hyderabad for luxury real estate investments",
+                "link": "https://www.99acres.com/articles/nri-investment-hyderabad.html",
+                "snippet": "A combination of standard of living, infrastructure, and favorable...",
+                "author": "Shalini Saraf",
+                "date": "Oct 29, 2025",
+                "views": "6730"
             }
         ]
         return {"status": "success", "data": fallback_data, "fallback": True}

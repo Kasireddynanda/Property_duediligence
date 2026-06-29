@@ -746,13 +746,13 @@ function App() {
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
 
   useEffect(() => {
-    if (isLoading || headerSearchLoading) {
+    if (isLoading || headerSearchLoading || isNewsLoading) {
       const interval = setInterval(() => {
         setCurrentFactIndex((prev) => (prev + 1) % RERA_FACTS.length);
       }, 10000);
       return () => clearInterval(interval);
     }
-  }, [isLoading, headerSearchLoading]);
+  }, [isLoading, headerSearchLoading, isNewsLoading]);
 
   const headerSearchRef = useRef<HTMLDivElement>(null);
   const headerInputRef = useRef<HTMLInputElement>(null);
@@ -2046,7 +2046,9 @@ function App() {
               {isNewsLoading ? (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '200px', color: '#64748b' }}>
                   <Loader2 size={24} className="map-spinner" style={{ marginBottom: '12px', color: '#3b82f6' }} />
-                  <span>Loading latest news...</span>
+                  <div style={{ padding: '0 20px', textAlign: 'center', fontSize: '13px', fontStyle: 'italic' }}>
+                    <strong>Quick Fact:</strong> <span style={{ fontWeight: 500 }}>{RERA_FACTS[currentFactIndex]}</span>
+                  </div>
                 </div>
               ) : newsData.length > 0 ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
