@@ -7,15 +7,17 @@ import logging
 logger = logging.getLogger("rera.email")
 
 def send_report_confirmation_email(to_email: str, user_name: str, entity_name: str, report_name: str):
+    import os
     from dotenv import load_dotenv
-    load_dotenv(override=True)
+    env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
+    load_dotenv(dotenv_path=env_path, override=True)
     smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     smtp_port = int(os.getenv("SMTP_PORT", "587"))
     smtp_user = os.getenv("SMTP_USER", "").strip()
     smtp_pass = os.getenv("SMTP_PASS", "").replace(" ", "")
 
     if not smtp_user or not smtp_pass:
-        logger.warning(f"SMTP credentials not configured. Skipping email to {to_email}")
+        logger.info(f"SMTP not configured (skipping email to {to_email})")
         return
 
     subject = f"Your {report_name} Request Received - Property Discovery"

@@ -363,8 +363,11 @@ async def run_discovery_background_scrape(
                     log(f"RiskMaster wishlist failed: {exc}", level="error")
                 except Exception as exc:
                     riskmaster_error = str(exc)
-                    log(f"RiskMaster wishlist failed: {exc}", level="error")
-                    logger.exception("[%s] RiskMaster wishlist failed", report_id)
+                    if "not configured" in riskmaster_error.lower():
+                        log(f"RiskMaster not configured (skipping wishlist for {resolved_promoter})", level="info")
+                    else:
+                        log(f"RiskMaster wishlist failed: {exc}", level="error")
+                        logger.exception("[%s] RiskMaster wishlist failed", report_id)
 
         log("Loading promoter portfolio from INFRA.Telangana_Detailed")
         payload = load_promoter_portfolio_for_report(
