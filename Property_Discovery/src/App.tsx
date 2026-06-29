@@ -1281,7 +1281,7 @@ function App() {
       {viewMode === 'search' ? (
         <main className="discovery-container">
           <span className="hero-tagline">Registry Due Diligence</span>
-          <h1 className="hero-title">Institutional Property Discovery & Screening</h1>
+          <h1 className="hero-title">Property Discovery & Screening</h1>
           <p className="hero-description">
             Search and verify property ownership logs, survey boundary litigation, developer RERA compliance, and financial encumbrances instantly.
           </p>
