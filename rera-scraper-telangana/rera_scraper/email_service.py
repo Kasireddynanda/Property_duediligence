@@ -11,12 +11,21 @@ def send_report_confirmation_email(to_email: str, user_name: str, entity_name: s
     from dotenv import load_dotenv
     env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
     load_dotenv(dotenv_path=env_path, override=True)
-    smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+    
+    smtp_server = os.getenv("SMTP_HOST", os.getenv("SMTP_SERVER", "smtp.gmail.com"))
     smtp_port = int(os.getenv("SMTP_PORT", "587"))
     smtp_user = os.getenv("SMTP_USER", "").strip()
-    smtp_pass = os.getenv("SMTP_PASS", "").replace(" ", "")
+    smtp_pass = os.getenv("SMTP_PASSWORD", os.getenv("SMTP_PASS", "")).replace(" ", "")
+    smtp_from = os.getenv("SMTP_FROM", smtp_user)
 
     print(f"[EMAIL SERVICE] Checking SMTP config for {to_email}")
+    
+    print("SMTP_HOST =", repr(os.getenv("SMTP_HOST")))
+    print("SMTP_PORT =", repr(os.getenv("SMTP_PORT")))
+    print("SMTP_USER =", repr(os.getenv("SMTP_USER")))
+    print("SMTP_PASSWORD =", repr(os.getenv("SMTP_PASSWORD")))
+    print("SMTP_FROM =", repr(os.getenv("SMTP_FROM")))
+    
     if not smtp_user or not smtp_pass:
         msg = f"SMTP not configured (skipping email to {to_email})"
         print(f"[EMAIL SERVICE] {msg}")
@@ -39,7 +48,7 @@ def send_report_confirmation_email(to_email: str, user_name: str, entity_name: s
     """
 
     msg = MIMEMultipart()
-    msg['From'] = smtp_user
+    msg['From'] = smtp_from
     msg['To'] = to_email
     msg['Subject'] = subject
 
