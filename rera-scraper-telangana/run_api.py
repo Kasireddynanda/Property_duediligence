@@ -14,6 +14,7 @@ logging.basicConfig(
 )
 logging.getLogger("rera.riskmaster").setLevel(logging.INFO)
 logging.getLogger("rera.report").setLevel(logging.INFO)
+logging.getLogger("rera.email").setLevel(logging.INFO)
 
 if __name__ == "__main__":
     uvicorn.run("api.server:app", host="0.0.0.0", port=8000, reload=True, env_file=".env")

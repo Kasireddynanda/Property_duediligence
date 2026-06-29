@@ -16,8 +16,11 @@ def send_report_confirmation_email(to_email: str, user_name: str, entity_name: s
     smtp_user = os.getenv("SMTP_USER", "").strip()
     smtp_pass = os.getenv("SMTP_PASS", "").replace(" ", "")
 
+    print(f"[EMAIL SERVICE] Checking SMTP config for {to_email}")
     if not smtp_user or not smtp_pass:
-        logger.info(f"SMTP not configured (skipping email to {to_email})")
+        msg = f"SMTP not configured (skipping email to {to_email})"
+        print(f"[EMAIL SERVICE] {msg}")
+        logger.info(msg)
         return
 
     subject = f"Your {report_name} Request Received - Property Discovery"
@@ -43,12 +46,15 @@ def send_report_confirmation_email(to_email: str, user_name: str, entity_name: s
     msg.attach(MIMEText(body, 'html'))
 
     try:
+        print(f"[EMAIL SERVICE] Sending confirmation email to {to_email}...")
         logger.info(f"Sending confirmation email to {to_email}...")
         server = smtplib.SMTP(smtp_server, smtp_port)
         server.starttls()
         server.login(smtp_user, smtp_pass)
         server.send_message(msg)
         server.quit()
+        print(f"[EMAIL SERVICE] Email sent successfully to {to_email}")
         logger.info(f"Email sent successfully to {to_email}")
     except Exception as e:
+        print(f"[EMAIL SERVICE ERROR] Failed to send email to {to_email}: {e}")
         logger.error(f"Failed to send email to {to_email}: {e}")
