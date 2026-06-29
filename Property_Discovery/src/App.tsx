@@ -743,6 +743,17 @@ function App() {
   const [headerSearchLoading, setHeaderSearchLoading] = useState<boolean>(false);
   const [showHeaderSuggestions, setShowHeaderSuggestions] = useState<boolean>(false);
 
+  const NEWS_IMAGES = [
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1416331108676-a22ccb276e35?w=400&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=400&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=400&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1577495508048-b635879837f1?w=400&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1506521781263-d8422e82fd6d?w=400&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=400&h=200&fit=crop"
+  ];
+
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
 
   useEffect(() => {
@@ -2056,7 +2067,7 @@ function App() {
                     <div key={idx} style={{ backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
                       <a href={news.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
                         <img 
-                          src={`https://picsum.photos/seed/property${idx + 1}/400/200`} 
+                          src={NEWS_IMAGES[idx % NEWS_IMAGES.length]} 
                           alt="News thumbnail" 
                           style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
                         />
